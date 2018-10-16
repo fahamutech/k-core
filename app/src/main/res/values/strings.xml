@@ -79,4 +79,7 @@
     <string name="twelve_monthly">Year(100,000TZ)</string>
     <string name="one_monthly">Month(10,000TZ)</string>
     <string name="title_activity_forum_image_viwer">ForumImageViwer</string>
+    <string name="account_expire">Account Expire</string>
+    <string name="vip">VIP</string>
+    <string name="premium">Your account is premium</string>
 </resources>

@@ -20,12 +20,14 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.MainActivity;
 import com.fahamutech.doctorapp.forum.database.DataBaseCallback;
 import com.fahamutech.doctorapp.forum.database.PostNoSqlDataBase;
 import com.fahamutech.doctorapp.forum.database.UserDataSource;
 import com.fahamutech.doctorapp.forum.database.UserNoSqlDataBase;
 import com.fahamutech.doctorapp.forum.model.Patient;
 import com.fahamutech.doctorapp.forum.model.UserSubscription;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -50,8 +52,9 @@ public class ProfileActivity extends AppCompatActivity {
     private Button receiptButton;
     private CircleImageView circleImageView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private UserDataSource noSqlDatabase;
+    private Session session;
+    private MaterialDialog materialDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         noSqlDatabase = new UserNoSqlDataBase(this);
 
+        //session
+        session = new Session(this);
+
         //for testing
         contactUs();
 
@@ -77,26 +83,42 @@ public class ProfileActivity extends AppCompatActivity {
         //user data
         getUserDetails();
 
+
         //subscription details
-        //getSubDetails();
+        getSubDetails();
     }
 
     private void getUserDetails() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) noSqlDatabase.getUser(currentUser.getUid(), swipeRefreshLayout,
-                (DataBaseCallback) data -> {
-                    Patient patient = (Patient) data;
-                    fullName.setText(patient.getName());
-                    email.setText(patient.getEmail());
-                    phoneEditText.setText(patient.getPhoneNumber());
-                    addressTextEdit.setText(patient.getAddress());
-                    try {
-                        Glide.with(this).load(patient.getPhoto()).into(circleImageView);
-                    } catch (Throwable ignore) {
-                    }
-                    //call get subscription
-                    getSubDetails();
-                });
+        Patient savedUser = session.getSavedUser();
+        if (savedUser == null) {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) noSqlDatabase.getUser(
+                    currentUser.getUid(),
+                    swipeRefreshLayout,
+                    (DataBaseCallback) data -> {
+                        Patient patient = (Patient) data;
+                        fullName.setText(patient.getName());
+                        email.setText(patient.getEmail());
+                        phoneEditText.setText(patient.getPhoneNumber());
+                        addressTextEdit.setText(patient.getAddress());
+                        try {
+                            Glide.with(this).load(patient.getPhoto()).into(circleImageView);
+                        } catch (Throwable ignore) {
+                        }
+                    });
+        } else {
+            fullName.setText(savedUser.getName());
+            email.setText(savedUser.getEmail());
+            phoneEditText.setText(savedUser.getPhoneNumber());
+            addressTextEdit.setText(savedUser.getAddress());
+            try {
+                Glide.with(this).load(savedUser.getPhoto()).into(circleImageView);
+            } catch (Throwable ignore) {
+            }
+        }
+
+        //call get subscription
+        //getSubDetails();
     }
 
     private void updateProfile() {
@@ -107,15 +129,63 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getSubDetails() {
+        initDialog();
+        showDialog();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             noSqlDatabase.getUserSubscription(currentUser.getEmail(), swipeRefreshLayout,
                     (DataBaseCallback) data -> {
                         UserSubscription subscription = (UserSubscription) data;
-                        amountTextView.setText("0");
-                    });
+                        if (subscription != null) {
+                            long l = Long.parseLong(subscription.getEnd());
+                            if (l > System.currentTimeMillis())
+                                accActive(subscription);
+                            else accExpire();
+                            hideDialog();
+                        } else {
+                            accExpire();
+                            hideDialog();
+                        }
+                    }
+            );
         }
+    }
+
+    private void accActive(UserSubscription subscription) {
+        amountTextView.setText(subscription.getAmount());
+        subscriptionTextEdit.setText(R.string.vip);
+        statusTextEdit.setText(R.string.premium);
+        //hide pay
+        payButton.setVisibility(View.GONE);
+        //update pay status
+        session.userPay(Session.PAY_OK);
+    }
+
+    private void accExpire() {
+        amountTextView.setText("0");
+        subscriptionTextEdit.setText(R.string.free);
+        statusTextEdit.setText(R.string.account_expire);
+        //show pay
+        payButton.setVisibility(View.VISIBLE);
+        //update pay status
+        session.userPay(Session.PAY_NOT_OK);
+    }
+
+    private void initDialog() {
+        materialDialog = new MaterialDialog.Builder(this)
+                .progress(true, 1)
+                .content("Checking payment...")
+                .canceledOnTouchOutside(false)
+                .build();
+    }
+
+    private void hideDialog() {
+        materialDialog.dismiss();
+    }
+
+    private void showDialog() {
+        materialDialog.show();
     }
 
     private void bindView() {
@@ -240,4 +310,14 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (new Session(this).getUserPay().equals(Session.PAY_OK))
+            super.onBackPressed();
+        else {
+
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
 }

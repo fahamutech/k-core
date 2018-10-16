@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,16 +22,22 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.database.ForumC;
 import com.fahamutech.doctorapp.forum.database.PostDataSource;
 import com.fahamutech.doctorapp.forum.database.PostNoSqlDataBase;
 import com.fahamutech.doctorapp.forum.fragment.AllChartFragment;
 import com.fahamutech.doctorapp.forum.fragment.MyChatFragment;
 import com.fahamutech.doctorapp.forum.model.ChatTopic;
+import com.fahamutech.doctorapp.forum.model.UserSubscription;
+import com.fahamutech.doctorapp.session.Session;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.List;
 
 public class ForumMainActivity extends AppCompatActivity {
 
@@ -62,6 +69,9 @@ public class ForumMainActivity extends AppCompatActivity {
         iniUI();
         //check if user is exist
         checkIsLogin();
+
+        //check pay
+        checkThePay();
     }
 
     @Override
@@ -74,12 +84,22 @@ public class ForumMainActivity extends AppCompatActivity {
      * check if user is exist in firebase
      */
     private void checkIsLogin() {
+        Session session = new Session(this);
+
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            Toast.makeText(this, "Please login firest", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please login first", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, SignUpActivity.class));
             //finish();
         } else {
             //check if user is paying
+            String userPay = session.getUserPay();
+            if (userPay.equals(Session.PAY_D)) {
+                Toast.makeText(this, "Please pay first", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
+            } else if (userPay.equals(Session.PAY_NOT_OK)) {
+                Toast.makeText(this, "Please pay first", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ProfileActivity.class));
+            }
         }
     }
 
@@ -243,5 +263,40 @@ public class ForumMainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkThePay() {
+        Session session = new Session(this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String docId = user.getEmail();
+            FirebaseFirestore.getInstance().collection(ForumC.FORUM_USER.name())
+                    .document(docId)
+                    .collection(ForumC.SUBSCRIPTION.name())
+                    .orderBy("end")
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        List<UserSubscription> userSubscriptions
+                                = queryDocumentSnapshots.toObjects(UserSubscription.class);
+                        if (userSubscriptions.size() > 0) {
+                            UserSubscription subscription = userSubscriptions.get(0);
+                            if (subscription != null) {
+                                long l = Long.parseLong(subscription.getEnd());
+                                if (l > System.currentTimeMillis())
+                                    session.userPay(Session.PAY_OK);
+                                else session.userPay(Session.PAY_NOT_OK);
+                            } else {
+                                session.userPay(Session.PAY_NOT_OK);
+                            }
+                        } else {
+                            session.userPay(Session.PAY_NOT_OK);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        session.userPay(Session.PAY_NOT_OK);
+                    });
+        }
+
     }
 }

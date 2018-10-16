@@ -33,25 +33,23 @@
             android:label="@string/title_activity_read"
             android:parentActivityName=".activities.CategoryContent" />
         <!--<activity-->
-            <!--android:name="com.fahamutech.doctorapp.forum.ForumMainActivity"-->
-            <!--android:parentActivityName=".activities.MainActivity" />-->
+        <!--android:name="com.fahamutech.doctorapp.forum.ForumMainActivity"-->
+        <!--android:parentActivityName=".activities.MainActivity" />-->
         <!--<activity-->
-            <!--android:name=".activities.ImageActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
-            <!--android:label="@string/title_activity_image"-->
-            <!--android:theme="@style/FullscreenTheme"></activity>-->
+        <!--android:name=".activities.ImageActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+        <!--android:label="@string/title_activity_image"-->
+        <!--android:theme="@style/FullscreenTheme"></activity>-->
         <activity
             android:name=".activities.SimpleImageViewer"
-            android:parentActivityName=".activities.MainActivity"
             android:label="@string/title_activity_simple_image_viewer"
-            android:theme="@style/AppTheme"/>
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name="com.fahamutech.doctorapp.forum.ForumMainActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".forum.ForumMainActivity"
+            android:parentActivityName=".activities.MainActivity">
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
         </activity>
 
         <!-- <activity -->
@@ -60,7 +58,7 @@
         <!-- android:parentActivityName=".ForumMainActivity" -->
         <!-- android:theme="@style/AppTheme" /> -->
 
-        <service android:name="com.fahamutech.doctorapp.forum.message.Notification">
+        <service android:name=".forum.message.Notification">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -82,30 +80,31 @@
             android:resource="@color/colorAccent" />
 
         <activity
-            android:name="com.fahamutech.doctorapp.forum.ProfileActivity"
+            android:name=".forum.ProfileActivity"
             android:label="@string/title_activity_sign_in"
-            android:parentActivityName="com.fahamutech.doctorapp.forum.ForumMainActivity" />
+            android:parentActivityName=".forum.ForumMainActivity" />
         <activity
             android:name="com.fahamutech.doctorapp.forum.MyChatActivity"
-            android:launchMode="singleTask"
             android:label="@string/title_activity_my_chat"
-            android:parentActivityName="com.fahamutech.doctorapp.forum.ForumMainActivity" />
+            android:launchMode="singleTask"
+            android:parentActivityName=".forum.ForumMainActivity" />
         <activity
-            android:name="com.fahamutech.doctorapp.forum.SignUpActivity"
+            android:name=".forum.SignUpActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:label="@string/title_activity_sign_up" />
         <activity
-            android:name="com.fahamutech.doctorapp.forum.PayActivity"
+            android:name=".forum.PayActivity"
             android:label="@string/title_activity_pay"
-            android:parentActivityName="com.fahamutech.doctorapp.forum.ProfileActivity" />
+            android:parentActivityName=".forum.ProfileActivity" />
         <activity
-            android:name="com.fahamutech.doctorapp.forum.ReceiptsActivity"
+            android:name=".forum.ReceiptsActivity"
             android:label="@string/title_activity_receipts"
-            android:parentActivityName="com.fahamutech.doctorapp.forum.ProfileActivity" />
+            android:parentActivityName=".forum.ProfileActivity" />
         <activity
-            android:name="com.fahamutech.doctorapp.forum.ForumImageViwer"
-            android:parentActivityName="com.fahamutech.doctorapp.forum.MyChatActivity"
+            android:name=".forum.ForumImageViwer"
             android:label="@string/title_activity_forum_image_viwer"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:parentActivityName=".forum.MyChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.fahamutech.doctorapp.forum.ForumMainActivity;
 import com.fahamutech.doctorapp.R;
 import com.fahamutech.doctorapp.adapter.HomePageFragmentAdapter;
+import com.fahamutech.doctorapp.forum.ForumMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,18 +45,17 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(view, "Chat is opening", Snackbar.LENGTH_SHORT).show();
             startActivity(new Intent(this, ForumMainActivity.class));
         });
-
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {

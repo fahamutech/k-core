@@ -10,6 +10,7 @@ import android.view.View;
 import com.fahamutech.doctorapp.forum.model.Patient;
 import com.fahamutech.doctorapp.forum.model.Receipt;
 import com.fahamutech.doctorapp.forum.model.UserSubscription;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.SetOptions;
 
@@ -81,12 +82,14 @@ public class UserNoSqlDataBase extends NoSqlDatabase implements UserDataSource {
                     if (userSubscriptions.size() > 0) {
                         dataBaseCallbacks[0].then(userSubscriptions.get(0));
                     } else {
+                        dataBaseCallbacks[0].then(null);
                         Log.e(TAG, "Patient subscription is empty");
                         swipeRefreshLayout.setRefreshing(false);
                     }
                     swipeRefreshLayout.setRefreshing(false);
                 })
                 .addOnFailureListener(e -> {
+                    dataBaseCallbacks[0].then(null);
                     Log.e(TAG, "Failed to get user subscription, reason : " + e);
                     swipeRefreshLayout.setRefreshing(false);
                 });
@@ -99,6 +102,13 @@ public class UserNoSqlDataBase extends NoSqlDatabase implements UserDataSource {
         TextInputEditText email = (TextInputEditText) view[1];
         TextInputEditText phone = (TextInputEditText) view[2];
         TextInputEditText address = (TextInputEditText) view[3];
+
+        Session session = new Session(context);
+        Patient savedUser = session.getSavedUser();
+        savedUser.setPhoneNumber(phone.getText().toString());
+        savedUser.setAddress(address.getText().toString());
+        session.saveUser(savedUser);
+
         HashMap<String, Object> data = new HashMap<>();
         data.put("phoneNumber", phone.getText().toString());
         data.put("address", address.getText().toString());
@@ -107,16 +117,16 @@ public class UserNoSqlDataBase extends NoSqlDatabase implements UserDataSource {
                 .update(data)
                 .addOnSuccessListener(aVoid -> {
                     Snackbar.make(email, "Profile updated", Snackbar.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(true);
+                    swipeRefreshLayout.setRefreshing(false);
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Failed to update profile, reason : " + e);
-                    swipeRefreshLayout.setRefreshing(true);
+                    swipeRefreshLayout.setRefreshing(false);
                 });
     }
 
     @Override
-    public void getReceipts(String docId,SwipeRefreshLayout swipeRefreshLayout,
+    public void getReceipts(String docId, SwipeRefreshLayout swipeRefreshLayout,
                             DataBaseCallback... dataBaseCallbacks) {
         swipeRefreshLayout.setRefreshing(true);
         firestore.collection(ForumC.FORUM_USER.name())
@@ -128,7 +138,7 @@ public class UserNoSqlDataBase extends NoSqlDatabase implements UserDataSource {
                     swipeRefreshLayout.setRefreshing(false);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG,"Failed to get user receipts");
+                    Log.e(TAG, "Failed to get user receipts");
                     swipeRefreshLayout.setRefreshing(false);
                 });
     }

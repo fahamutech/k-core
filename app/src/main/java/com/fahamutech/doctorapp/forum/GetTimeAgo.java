@@ -44,4 +44,36 @@ public class GetTimeAgo extends Application {
             return (diff / DAY_MILLIS) + " days";
         }
     }
+
+    public static long getTimeAgo(String t) {
+        Long time = Long.parseLong(t);
+        if (time < 1000000000000L) {
+            // if timestamp given in seconds, convert to millis
+            time *= 1000;
+        }
+
+        long now = System.currentTimeMillis();
+        if (time > now || time <= 0) {
+            return 0;
+        }
+
+        // TODO: localize
+        final long diff = now - time;
+//        if (diff < MINUTE_MILLIS) {
+//            return "0";
+//        } else if (diff < 2 * MINUTE_MILLIS) {
+//            return "1 min";
+//        } else if (diff < 50 * MINUTE_MILLIS) {
+//            return (diff / MINUTE_MILLIS) + " min";
+//        } else if (diff < 90 * MINUTE_MILLIS) {
+//            return "1 h";
+//        } else if (diff < 24 * HOUR_MILLIS) {
+//            return (diff / HOUR_MILLIS) + " h";
+//        } else if (diff < 48 * HOUR_MILLIS) {
+//            return "Yesterday";
+//        } else {
+        return (diff / DAY_MILLIS);
+
+        //}
+    }
 }

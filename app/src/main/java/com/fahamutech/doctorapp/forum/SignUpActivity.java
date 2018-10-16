@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.MainActivity;
 import com.fahamutech.doctorapp.forum.database.UserDataSource;
 import com.fahamutech.doctorapp.forum.database.UserNoSqlDataBase;
 import com.fahamutech.doctorapp.forum.model.Patient;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,6 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
     private UserDataSource noSqlDatabase;
     private MaterialDialog loginDialog;
 
+    private Session session;
+
     @Override
     protected void onStart() {
         checkIsLogin();
@@ -57,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
-            //supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
             supportActionBar.setTitle("Sign Up");
         }
 
@@ -69,6 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         //start sign in
         signUpButton.setOnClickListener(v -> signIn());
+
+        //initiate session
+        session = new Session(this);
     }
 
     private void bindView() {
@@ -105,29 +112,38 @@ public class SignUpActivity extends AppCompatActivity {
      * @param acct the google account
      */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.e(TAG, "signInWithCredential:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
+
+                            //save user on the local
+
+
                             String photo;
                             if (user.getPhotoUrl() != null) {
                                 photo = user.getPhotoUrl().toString();
                             } else photo = "";
 
-                            noSqlDatabase.createUser(new Patient(
+                            Patient patient = new Patient(
                                     user.getDisplayName(),
                                     user.getEmail(),
                                     mAuth.getUid(),
                                     photo,
                                     phoneNumber.getText().toString(),
                                     address.getText().toString()
-                            ));
+                            );
+
+                            //save user to local
+                            session.saveUser(patient);
+                            //save pay to localhost
+
+
+                            noSqlDatabase.createUser(patient);
                             //hide login dialog
                             hideDialog();
                             //update profile
@@ -206,7 +222,10 @@ public class SignUpActivity extends AppCompatActivity {
                 showDialog();
 
                 //authenticate account to firebase
-                firebaseAuthWithGoogle(account);
+                if (account != null) firebaseAuthWithGoogle(account);
+                else {
+                    Toast.makeText(this, "Sign in failed, Try again", Toast.LENGTH_SHORT).show();
+                }
 
             } catch (ApiException ignore) {
                 // Google Sign In failed, update UI appropriately
@@ -218,4 +237,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+        super.onBackPressed();
+    }
 }
