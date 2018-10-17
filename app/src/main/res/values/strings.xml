@@ -82,4 +82,8 @@
     <string name="account_expire">Account Expire</string>
     <string name="vip">VIP</string>
     <string name="premium">Your account is premium</string>
+    <string name="pay_instruction">TUMA PESA KWENDA NAMBA 0764943055 (JOSHUA MSHANA) KISHA WEKA NAMBA YAKO YA SIMU ULIYOTUMIA KUTUMA PESA NA UJUMBE WA UTHIBITISHO UKIFUTA MANENO YANAYOONYESHA KIASI CHAKO KILICHOBAKIA</string>
+    <string name="confirm">Confirm</string>
+    <string name="pay_confirm">KUMALIZA MALIPO PIGA SIMU AU TUMA SMS KWENDA 0764943055</string>
+    <string name="call">Call</string>
 </resources>

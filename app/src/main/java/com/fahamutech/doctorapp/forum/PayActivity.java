@@ -28,12 +28,10 @@ public class PayActivity extends AppCompatActivity {
      */
     private static String PAY = "https://us-central1-money-fast-firebase.cloudfunctions.net/send_money?";
 
-    private FirebaseAuth firebaseAuth;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-    WebView webView;
-    Toolbar toolbar;
-    FloatingActionButton fab;
+    //private SwipeRefreshLayout swipeRefreshLayout;
+    //WebView webView;
+    private Toolbar toolbar;
+    //private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class PayActivity extends AppCompatActivity {
         }
 
         //auth
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() == null) {
             startActivity(new Intent(this, SignUpActivity.class));
             finish();
@@ -57,49 +55,50 @@ public class PayActivity extends AppCompatActivity {
             //swipe layout
             initUI();
 
-            fab.setOnClickListener(view ->
-                    Snackbar.make(view,
-                            "Selected amount : " + getIntent().getStringExtra("_amount"),
-                            Snackbar.LENGTH_SHORT)
-                            .setAction("Action", null).show());
+//            fab.setOnClickListener(view ->
+//                    Snackbar.make(view,
+//                            "Selected amount : " + getIntent().getStringExtra("_amount"),
+//                            Snackbar.LENGTH_SHORT)
+//                            .setAction("Action", null).show());
         }
     }
 
     private void bindViews() {
-        swipeRefreshLayout = findViewById(R.id.pay_swipe);
-        webView = findViewById(R.id.pay_webview);
+        //swipeRefreshLayout = findViewById(R.id.pay_swipe);
+        //webView = findViewById(R.id.pay_webview);
         toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
+        //fab = findViewById(R.id.fab);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initUI() {
-        String params = "email=" + firebaseAuth.getCurrentUser().getEmail() +
-                "&dsc=Payment For Kemifra App&amount=1000&callback=doctor-fahamutech.firebaseapp.com";
-        webView.loadUrl(PAY + params);
-        webView.setWebViewClient(new MyWebClient());
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            webView.loadUrl(PAY + params);
-        });
+//        String params = "email=" + firebaseAuth.getCurrentUser().getEmail() +
+//                "&dsc=PaymentModel For Kemifra App&amount=1000&callback=doctor-fahamutech.firebaseapp.com";
+//        webView.loadUrl(PAY + params);
+//        webView.setWebViewClient(new MyWebClient());
+//        WebSettings settings = webView.getSettings();
+//        settings.setJavaScriptEnabled(true);
+//        swipeRefreshLayout.setOnRefreshListener(() -> {
+//            webView.loadUrl(PAY + params);
+//        });
+
     }
 
-    private class MyWebClient extends WebViewClient {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            swipeRefreshLayout.setRefreshing(true);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
-        @Override
-        public void onReceivedError(WebView view, int errorCode,
-                                    String description, String failingUrl) {
-            Snackbar.make(view, "Error loading page", Snackbar.LENGTH_LONG).show();
-        }
-    }
+//    private class MyWebClient extends WebViewClient {
+//        @Override
+//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//           // swipeRefreshLayout.setRefreshing(true);
+//        }
+//
+//        @Override
+//        public void onPageFinished(WebView view, String url) {
+//           // swipeRefreshLayout.setRefreshing(false);
+//        }
+//
+//        @Override
+//        public void onReceivedError(WebView view, int errorCode,
+//                                    String description, String failingUrl) {
+//            Snackbar.make(view, "Error loading page", Snackbar.LENGTH_LONG).show();
+//        }
+//    }
 }

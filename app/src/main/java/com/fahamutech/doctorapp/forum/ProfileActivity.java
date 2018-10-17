@@ -211,7 +211,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         payButton.setOnClickListener(v -> {
-            payDialog();
+            //payDialog();
+            Intent intent = new Intent(this, PayActivity.class);
+            String amount = "10000";
+            intent.putExtra("_amount", amount);
+            startActivity(intent);
         });
 
         updateProfileButton.setOnClickListener(v -> {
@@ -230,7 +234,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .canceledOnTouchOutside(false)
                 .onNegative((dialog, which) -> {
                     Snackbar.make(payButton,
-                            "Payment Canceled", Snackbar.LENGTH_SHORT).show();
+                            "PaymentModel Canceled", Snackbar.LENGTH_SHORT).show();
                     dialog.dismiss();
                 })
                 .onPositive((dialog, which) -> {

@@ -39,7 +39,7 @@ public class ReceiptsActivity extends AppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setTitle("Payment History");
+            supportActionBar.setTitle("PaymentModel History");
         }
 
         //debug
