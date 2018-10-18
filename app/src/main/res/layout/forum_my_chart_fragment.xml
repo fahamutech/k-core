@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context="com.fahamu.tech.chat.forumadmin.fragment.MyChatFragment">
+    tools:context="com.fahamutech.doctorappadmin.forumadmin.fragment.MyChatFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_chart_recyclerView"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fahamu.tech.chat.forumadmin.ForumMainActivity">
+    tools:context="com.fahamutech.doctorappadmin.forumadmin.ForumMainActivity">
 
 
     <android.support.design.widget.AppBarLayout

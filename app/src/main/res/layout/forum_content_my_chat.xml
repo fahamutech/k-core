@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fahamutech.doctorapp.forum.MyChatActivity"
+    tools:context="com.fahamutech.adminapp.forum.MyChatActivity"
     tools:showIn="@layout/forum_activity_my_chat">
 
     <!--chat list-->

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/profile_swipe"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fahamutech.doctorapp.forum.ProfileActivity"
+    tools:context="com.fahamutech.adminapp.forum.ProfileActivity"
     tools:showIn="@layout/forum_activity_sprofile">
 
     <android.support.v4.widget.NestedScrollView

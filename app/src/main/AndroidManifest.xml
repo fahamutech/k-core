@@ -84,7 +84,7 @@
             android:label="@string/title_activity_sign_in"
             android:parentActivityName=".forum.ForumMainActivity" />
         <activity
-            android:name="com.fahamutech.doctorapp.forum.MyChatActivity"
+            android:name="com.fahamutech.adminapp.forum.MyChatActivity"
             android:label="@string/title_activity_my_chat"
             android:launchMode="singleTask"
             android:parentActivityName=".forum.ForumMainActivity" />
