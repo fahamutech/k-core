@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.message;
+package com.fahamutech.doctorapp.forum.message;
 
 import android.util.Log;
 
@@ -13,7 +13,6 @@ public class Notification extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -41,24 +40,10 @@ public class Notification extends FirebaseMessagingService {
         // message, here is where that should be initiated. See sendNotification method below.
     }
 
-    @Override
-    public void onDeletedMessages() {
-        super.onDeletedMessages();
-    }
-
-    @Override
-    public void onMessageSent(String s) {
-        super.onMessageSent(s);
-    }
-
-    @Override
-    public void onSendError(String s, Exception e) {
-        super.onSendError(s, e);
-    }
 
     @Override
     public void onNewToken(String s) {
-        Log.e("TAH***TOKEN",s);
+        Log.e("TAG***TOKEN",s);
     }
 
 }

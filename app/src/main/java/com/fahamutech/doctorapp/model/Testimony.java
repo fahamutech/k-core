@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.model;
+package com.fahamutech.doctorapp.model;
 
 import java.io.Serializable;
 

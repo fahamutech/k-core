@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.fragment;
+package com.fahamutech.doctorapp.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.database.connector.HomeDataSource;
-import com.fahamutech.adminapp.database.noSql.HomeNoSqlDatabase;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.database.connector.HomeDataSource;
+import com.fahamutech.doctorapp.database.noSql.HomeNoSqlDatabase;
 
 public class HomeArticlesFragment extends Fragment {
 

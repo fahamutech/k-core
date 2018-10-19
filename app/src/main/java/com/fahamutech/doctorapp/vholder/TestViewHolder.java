@@ -1,10 +1,10 @@
-package com.fahamutech.adminapp.vholder;
+package com.fahamutech.doctorapp.vholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.fahamutech.adminapp.R;
+import com.fahamutech.doctorapp.R;
 
 public class TestViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;

@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp;
+package com.fahamutech.doctorapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

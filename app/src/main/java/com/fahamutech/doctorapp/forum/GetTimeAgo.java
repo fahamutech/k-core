@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.app.Application;
 import android.content.Context;

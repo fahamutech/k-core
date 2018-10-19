@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.activities;
+package com.fahamutech.doctorapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.ForumMainActivity;
-import com.fahamutech.adminapp.database.connector.ArticleDataSource;
-import com.fahamutech.adminapp.database.noSql.ArticlesNoSqlDatabase;
-import com.fahamutech.adminapp.model.Category;
-import com.fahamutech.adminapp.session.Session;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.ForumMainActivity;
+import com.fahamutech.doctorapp.database.connector.ArticleDataSource;
+import com.fahamutech.doctorapp.database.noSql.ArticlesNoSqlDatabase;
+import com.fahamutech.doctorapp.model.Category;
+import com.fahamutech.doctorapp.session.Session;
 
 public class CategoryContent extends AppCompatActivity {
 

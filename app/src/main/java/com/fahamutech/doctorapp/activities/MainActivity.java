@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.activities;
+package com.fahamutech.doctorapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.adapter.HomePageFragmentAdapter;
-import com.fahamutech.adminapp.forum.ForumMainActivity;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.adapter.HomePageFragmentAdapter;
+import com.fahamutech.doctorapp.forum.ForumMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 

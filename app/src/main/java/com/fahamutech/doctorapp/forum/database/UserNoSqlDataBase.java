@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -7,10 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
-import com.fahamutech.adminapp.forum.model.Patient;
-import com.fahamutech.adminapp.forum.model.Receipt;
-import com.fahamutech.adminapp.forum.model.UserSubscription;
-import com.fahamutech.adminapp.session.Session;
+import com.fahamutech.doctorapp.forum.model.Patient;
+import com.fahamutech.doctorapp.forum.model.Receipt;
+import com.fahamutech.doctorapp.forum.model.UserSubscription;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.SetOptions;
 

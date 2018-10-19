@@ -1,30 +1,32 @@
-package com.fahamutech.adminapp.forum.model;
+package com.fahamutech.doctorapp.forum.model;
 
-public class PaymentModel implements IPaymentModel{
-    private String amount;
+public class PaymentModel implements IPaymentModel {
     private String message;
     private String number;
-    private String time;
+    private long time;
     private String userId;
     private boolean flag;
+    private String amount;
 
-    public PaymentModel(){
+    public PaymentModel() {
 
     }
 
-    public PaymentModel(String amount, String message, String number, String time, String userId, boolean flag) {
-        this.amount = amount;
+    public PaymentModel(String amount, String message, String number, long time, String userId, boolean flag) {
         this.message = message;
         this.number = number;
         this.time = time;
         this.userId = userId;
         this.flag = flag;
+        this.amount = amount;
     }
 
+    @Override
     public String getAmount() {
         return amount;
     }
 
+    @Override
     public void setAmount(String amount) {
         this.amount = amount;
     }
@@ -45,11 +47,11 @@ public class PaymentModel implements IPaymentModel{
         this.number = number;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

@@ -1,6 +1,7 @@
-package com.fahamutech.adminapp.forum.model;
+package com.fahamutech.doctorapp.forum.model;
 
 public interface IPaymentModel {
+
     String getAmount();
 
     void setAmount(String amount);
@@ -13,9 +14,9 @@ public interface IPaymentModel {
 
     void setNumber(String number);
 
-    String getTime();
+    long getTime();
 
-    void setTime(String time);
+    void setTime(long time);
 
     String getUserId();
 

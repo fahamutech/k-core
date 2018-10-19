@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
+import com.fahamutech.doctorapp.R;
 
 public class ForumImageViwer extends AppCompatActivity {
 

@@ -1,10 +1,10 @@
-package com.fahamutech.adminapp.forum.vholder;
+package com.fahamutech.doctorapp.forum.vholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fahamutech.adminapp.R;
+import com.fahamutech.doctorapp.R;
 
 
 public class ReceiptsViewHolder extends RecyclerView.ViewHolder {

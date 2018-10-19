@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.activities;
+package com.fahamutech.doctorapp.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.model.Article;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.model.Article;
 
 public class ReadActivity extends AppCompatActivity {
     private Toolbar toolbar;

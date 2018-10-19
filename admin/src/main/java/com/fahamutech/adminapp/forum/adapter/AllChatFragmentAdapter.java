@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.forum.GetTimeAgo;
 import com.fahamutech.adminapp.forum.MyChatActivity;
+import com.fahamutech.adminapp.forum.message.MessageUtils;
 import com.fahamutech.adminapp.forum.model.ChatTopic;
 
 import java.util.List;
@@ -68,12 +69,16 @@ public class AllChatFragmentAdapter extends RecyclerView.Adapter<AllChatFragment
             context.startActivity(intent);
         });
 
+        //subscribe to the topic
+        new MessageUtils().subscribe(chatTopicModal.getDocId());
+
     }
 
     @Override
     public int getItemCount() {
         return listItem.size();
     }
+
 
     /**
      * view holder class of the adapter

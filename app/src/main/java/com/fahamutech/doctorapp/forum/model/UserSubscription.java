@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.model;
+package com.fahamutech.doctorapp.forum.model;
 
 public class UserSubscription {
     private String amount;

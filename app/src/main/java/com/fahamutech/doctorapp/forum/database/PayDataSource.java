@@ -1,7 +1,7 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
-import com.fahamutech.adminapp.forum.model.IPaymentModel;
+import com.fahamutech.doctorapp.forum.model.IPaymentModel;
 
 public interface PayDataSource {
-    void pay(IPaymentModel paymentModel);
+    void pay(IPaymentModel paymentModel, DataBaseCallback... dataBaseCallbacks);
 }

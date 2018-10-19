@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.adapter;
+package com.fahamutech.doctorapp.forum.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +11,13 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.ForumImageViwer;
-import com.fahamutech.adminapp.forum.GetTimeAgo;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.ForumImageViwer;
+import com.fahamutech.doctorapp.forum.GetTimeAgo;
 
-import com.fahamutech.adminapp.forum.model.ChatEnum;
-import com.fahamutech.adminapp.forum.model.ChatMessages;
-import com.fahamutech.adminapp.forum.vholder.MyChatViewHolder;
+import com.fahamutech.doctorapp.forum.model.ChatEnum;
+import com.fahamutech.doctorapp.forum.model.ChatMessages;
+import com.fahamutech.doctorapp.forum.vholder.MyChatViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

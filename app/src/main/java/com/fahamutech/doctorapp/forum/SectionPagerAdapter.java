@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

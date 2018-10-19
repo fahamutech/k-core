@@ -1,9 +1,9 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
-import com.fahamutech.adminapp.forum.model.Patient;
+import com.fahamutech.doctorapp.forum.model.Patient;
 
 public interface UserDataSource {
     void createUser(Patient patient);

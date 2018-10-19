@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.database.noSql;
+package com.fahamutech.doctorapp.database.noSql;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -7,9 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.fahamutech.adminapp.adapter.ArtAdapter;
-import com.fahamutech.adminapp.database.connector.ArticleDataSource;
-import com.fahamutech.adminapp.model.Article;
+import com.fahamutech.doctorapp.adapter.ArtAdapter;
+import com.fahamutech.doctorapp.database.connector.ArticleDataSource;
+import com.fahamutech.doctorapp.model.Article;
 import com.google.firebase.firestore.Query;
 
 import java.util.List;

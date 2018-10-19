@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.adapter;
+package com.fahamutech.doctorapp.forum.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.model.Receipt;
-import com.fahamutech.adminapp.forum.vholder.ReceiptsViewHolder;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.model.Receipt;
+import com.fahamutech.doctorapp.forum.vholder.ReceiptsViewHolder;
 
 import java.util.Date;
 import java.util.List;

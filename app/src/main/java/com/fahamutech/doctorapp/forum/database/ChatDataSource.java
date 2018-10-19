@@ -1,6 +1,6 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
-import com.fahamutech.adminapp.forum.model.ChatMessages;
+import com.fahamutech.doctorapp.forum.model.ChatMessages;
 
 public interface ChatDataSource {
     void sendMessage(String docId, ChatMessages chatMessages, DataBaseCallback... dataBaseCallbacks);

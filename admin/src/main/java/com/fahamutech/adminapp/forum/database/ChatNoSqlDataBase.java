@@ -4,10 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.fahamutech.adminapp.forum.model.ChatMessages;
-import com.fahamutech.adminapp.forum.model.OnlineStatus;
+import com.fahamutech.adminapp.forum.model.DoctorOnlineStatus;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +35,32 @@ public class ChatNoSqlDataBase extends NoSqlDatabase implements ChatDataSource {
                 .collection(ForumC.FORUM_MESSAGE.name())
                 .document()
                 .set(chatMessages, SetOptions.merge())
-                .addOnSuccessListener(aVoid -> dataBaseCallbacks[0].then("done"))
+                .addOnSuccessListener(aVoid -> {
+
+                    JSONObject android = new JSONObject();
+                    JSONObject message = new JSONObject();
+                    JSONObject data = new JSONObject();
+                    JSONObject notification = new JSONObject();
+
+                    try {
+                        data.put("message", chatMessages.getMessage().trim());
+                        data.put("senderId", chatMessages.getSenderId().trim());
+                        data.put("type", chatMessages.getType());
+                        notification.put("title", "Kemifra");
+                        notification.put("body", chatMessages.getMessage().trim());
+                        android.put("priority", "high");
+                        android.put("data", data);
+                        android.put("notification", notification);
+                        message.put("android", android);
+                        message.put("topic", docId);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    dataBaseCallbacks[0].then(message);
+
+                })
                 .addOnFailureListener(e -> {
                     dataBaseCallbacks[1].then("failed");
                     Log.e(TAG, "Failed to send message");
@@ -120,8 +148,8 @@ public class ChatNoSqlDataBase extends NoSqlDatabase implements ChatDataSource {
                 .document(userId)
                 .addSnapshotListener((documentSnapshot, e) -> {
                     if (documentSnapshot != null) {
-                        OnlineStatus onlineStatus = documentSnapshot.toObject(OnlineStatus.class);
-                        dataBaseCallbacks[0].then(onlineStatus);
+                        DoctorOnlineStatus doctorOnlineStatus = documentSnapshot.toObject(DoctorOnlineStatus.class);
+                        dataBaseCallbacks[0].then(doctorOnlineStatus);
                     }
                 });
     }

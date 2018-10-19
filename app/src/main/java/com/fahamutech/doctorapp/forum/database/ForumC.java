@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 public enum ForumC {
 
@@ -12,4 +12,5 @@ public enum ForumC {
     SUBSCRIPTION,
     FORUM_ONLINE,
     FORUM_DOCTOR,
+    PAYMENT,;
 }

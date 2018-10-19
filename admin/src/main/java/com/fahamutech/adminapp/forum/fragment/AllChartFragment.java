@@ -46,12 +46,15 @@ public class AllChartFragment extends Fragment {
         super.onResume();
     }
 
+    public String getUser() {
+        return Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+    }
+
     @Override
     public void onDestroy() {
         if (listenerRegistration != null) {
             listenerRegistration.remove();
         }
-        dataSource.offline(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
         super.onDestroy();
     }
 }

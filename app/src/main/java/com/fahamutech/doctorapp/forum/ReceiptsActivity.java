@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,12 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.adapter.ReceiptsAdapter;
-import com.fahamutech.adminapp.forum.database.DataBaseCallback;
-import com.fahamutech.adminapp.forum.database.UserDataSource;
-import com.fahamutech.adminapp.forum.database.UserNoSqlDataBase;
-import com.fahamutech.adminapp.forum.model.Receipt;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.adapter.ReceiptsAdapter;
+import com.fahamutech.doctorapp.forum.database.DataBaseCallback;
+import com.fahamutech.doctorapp.forum.database.UserDataSource;
+import com.fahamutech.doctorapp.forum.database.UserNoSqlDataBase;
+import com.fahamutech.doctorapp.forum.model.Receipt;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

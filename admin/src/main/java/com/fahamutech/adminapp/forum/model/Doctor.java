@@ -1,35 +1,39 @@
 package com.fahamutech.adminapp.forum.model;
 
-public class Doctor {
+import java.io.Serializable;
+
+public class Doctor implements Serializable {
+
+    public static String DOCTOR = "doctor";
+
     private String name;
     private String email;
     private String id;
     private String photo;
     private String phoneNumber;
     private String address;
-    private String ref;
+    private String flag;
 
-    public Doctor(String name, String email, String id, String photo, String phoneNumber, String ref,
-                  String address) {
+    public Doctor() {
+
+    }
+
+    public Doctor(String name, String email, String id, String photo, String phoneNumber, String address, String flag) {
         this.name = name;
         this.email = email;
         this.id = id;
         this.photo = photo;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.ref = ref;
+        this.flag = flag;
     }
 
-    public Doctor() {
-
+    public String getFlag() {
+        return flag;
     }
 
-    public String getRef() {
-        return ref;
-    }
-
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     public String getName() {
@@ -64,19 +68,19 @@ public class Doctor {
         this.photo = photo;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getAddress() {
         return address;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

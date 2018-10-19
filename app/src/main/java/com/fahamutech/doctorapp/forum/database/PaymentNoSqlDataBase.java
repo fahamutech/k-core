@@ -1,8 +1,8 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 import android.content.Context;
 
-import com.fahamutech.adminapp.forum.model.IPaymentModel;
+import com.fahamutech.doctorapp.forum.model.IPaymentModel;
 
 public class PaymentNoSqlDataBase extends NoSqlDatabase implements PayDataSource {
 
@@ -11,7 +11,10 @@ public class PaymentNoSqlDataBase extends NoSqlDatabase implements PayDataSource
     }
 
     @Override
-    public void pay(IPaymentModel paymentModel) {
-
+    public void pay(IPaymentModel paymentModel, DataBaseCallback... dataBaseCallbacks) {
+        firestore.collection(ForumC.PAYMENT.name()).document()
+                .set(paymentModel)
+                .addOnSuccessListener(aVoid -> dataBaseCallbacks[0].then("done"))
+                .addOnFailureListener(e -> dataBaseCallbacks[1].then("fail : " + e));
     }
 }

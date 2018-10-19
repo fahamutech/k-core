@@ -1,9 +1,9 @@
-package com.fahamutech.adminapp.session;
+package com.fahamutech.doctorapp.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.fahamutech.adminapp.forum.model.Patient;
+import com.fahamutech.doctorapp.forum.model.Patient;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 

@@ -1,12 +1,12 @@
-package com.fahamutech.adminapp.adapter;
+package com.fahamutech.doctorapp.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.fahamutech.adminapp.fragment.HomeArticlesFragment;
-import com.fahamutech.adminapp.fragment.HomeTestimonyFragment;
+import com.fahamutech.doctorapp.fragment.HomeArticlesFragment;
+import com.fahamutech.doctorapp.fragment.HomeTestimonyFragment;
 
 public class HomePageFragmentAdapter extends FragmentPagerAdapter {
 

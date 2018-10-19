@@ -1,14 +1,13 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.fahamutech.adminapp.forum.adapter.AllChatFragmentAdapter;
-import com.fahamutech.adminapp.forum.adapter.MyChatFragmentAdapter;
-import com.fahamutech.adminapp.forum.model.ChatTopic;
-import com.fahamutech.adminapp.forum.model.OnlineStatus;
+import com.fahamutech.doctorapp.forum.adapter.MyChatFragmentAdapter;
+import com.fahamutech.doctorapp.forum.model.ChatTopic;
+import com.fahamutech.doctorapp.forum.model.OnlineStatus;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,31 +24,22 @@ public class PostNoSqlDataBase extends NoSqlDatabase implements PostDataSource {
         super(context);
     }
 
-    /**
-     * create new topic in a chat
-     *
-     * @param chatTopic topic object
-     */
     @Override
-    public void createChatTopic(ChatTopic chatTopic) {
+    public void createChatTopic(ChatTopic chatTopic, DataBaseCallback... dataBaseCallbacks) {
         DocumentReference forum_posts = firestore.collection(ForumC.FORUMS.name()).document();
         chatTopic.setDocId(forum_posts.getId());
-        forum_posts.set(chatTopic, SetOptions.merge());
+        forum_posts.set(chatTopic, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> {
+                    dataBaseCallbacks[0].then(chatTopic.getDocId());
+                })
+                .addOnFailureListener(e -> {
+                    dataBaseCallbacks[1].then(chatTopic.getDocId());
+                    Log.e(TAG, "failed : " + e);
+                });
     }
 
-    /**
-     * listener of the user topics
-     * get the list of the topic specific user write
-     *
-     * @param userId       user id
-     * @param recyclerView the container of the view
-     * @param context      the activity to show the list
-     */
     @Override
     public ListenerRegistration getMyChatPost(String userId, RecyclerView recyclerView, Context context) {
-
-        //update online status
-        online(userId);
 
         //return the listener
         return firestore.collection(ForumC.FORUMS.name())
@@ -70,11 +60,6 @@ public class PostNoSqlDataBase extends NoSqlDatabase implements PostDataSource {
                 });
     }
 
-    /**
-     * delete the post of a specific user
-     *
-     * @param docId the id of the document to delete
-     */
     @Override
     public void deletePost(String docId) {
         DocumentReference document = firestore.collection(ForumC.FORUMS.name()).document(docId);
@@ -83,38 +68,7 @@ public class PostNoSqlDataBase extends NoSqlDatabase implements PostDataSource {
                 .addOnFailureListener(e -> Log.e(TAG, "not deleted, cause : " + e));
     }
 
-    /**
-     * get all the topic available in the database
-     *
-     * @param recyclerView the list view for the topics
-     * @param context      the activity to show the view
-     */
-    @Override
-    public ListenerRegistration getAllPosts(RecyclerView recyclerView, Context context) {
-        //set online user
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser!=null)online(currentUser.getUid());
-
-        return firestore.collection(ForumC.FORUMS.name())
-                .orderBy("time", Query.Direction.DESCENDING)
-                .addSnapshotListener((queryDocumentSnapshots, e) -> {
-
-                    if (queryDocumentSnapshots != null) {
-                        List<ChatTopic> chatTopics = queryDocumentSnapshots.toObjects(ChatTopic.class);
-
-                        RecyclerView.Adapter adapter;
-                        adapter = new AllChatFragmentAdapter(chatTopics, context);
-                        recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    if (e != null) {
-                        Log.e("POSTNOSQL", "Problem get posts,reason : " + e);
-                    }
-                });
-    }
-
-    private void online(String userId) {
+    public void online(String userId) {
         if (isNetworkConnected()) {
             try {
                 firestore.collection(ForumC.FORUM_ONLINE.name())
@@ -141,6 +95,5 @@ public class PostNoSqlDataBase extends NoSqlDatabase implements PostDataSource {
                     .set(new OnlineStatus("offline"), SetOptions.merge());
         }
     }
-
 
 }

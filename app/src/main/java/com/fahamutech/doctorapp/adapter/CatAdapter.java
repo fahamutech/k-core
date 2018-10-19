@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.adapter;
+package com.fahamutech.doctorapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.activities.CategoryContent;
-import com.fahamutech.adminapp.model.Category;
-import com.fahamutech.adminapp.session.Session;
-import com.fahamutech.adminapp.vholder.CatViewHolder;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.CategoryContent;
+import com.fahamutech.doctorapp.model.Category;
+import com.fahamutech.doctorapp.session.Session;
+import com.fahamutech.doctorapp.vholder.CatViewHolder;
 
 import java.util.List;
 

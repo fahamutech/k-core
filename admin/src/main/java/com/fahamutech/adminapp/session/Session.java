@@ -3,8 +3,7 @@ package com.fahamutech.adminapp.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.fahamutech.adminapp.forum.model.Patient;
-import com.google.firebase.auth.FirebaseUser;
+import com.fahamutech.adminapp.forum.model.Doctor;
 import com.google.gson.Gson;
 
 public class Session {
@@ -31,20 +30,20 @@ public class Session {
         return sharedPreferences.getString(PAY, PAY_D);
     }
 
-    public void saveUser(Patient patient) {
+    public void saveUser(Doctor doctor) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         Gson gson = new Gson();
-        String s = gson.toJson(patient);
+        String s = gson.toJson(doctor);
         edit.putString(PATIENT, s).apply();
     }
 
-    public Patient getSavedUser() {
+    public Doctor getSavedUser() {
         String string = sharedPreferences.getString(PATIENT, "");
         if (string.isEmpty()) {
             return null;
         } else {
             Gson gson = new Gson();
-            return gson.fromJson(string, Patient.class);
+            return gson.fromJson(string, Doctor.class);
         }
     }
 

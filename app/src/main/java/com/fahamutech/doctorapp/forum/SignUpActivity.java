@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.activities.MainActivity;
-import com.fahamutech.adminapp.forum.database.UserDataSource;
-import com.fahamutech.adminapp.forum.database.UserNoSqlDataBase;
-import com.fahamutech.adminapp.forum.model.Patient;
-import com.fahamutech.adminapp.session.Session;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.MainActivity;
+import com.fahamutech.doctorapp.forum.database.UserDataSource;
+import com.fahamutech.doctorapp.forum.database.UserNoSqlDataBase;
+import com.fahamutech.doctorapp.forum.model.Patient;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

@@ -12,12 +12,14 @@ public class ChatTopic implements Serializable {
     private String userPhoto;
     private boolean userSeen;
     private boolean doctorSeen;
+    private String userName;
 
     public ChatTopic() {
 
     }
 
     public ChatTopic(
+            String userName,
             String title,
             String description,
             String userId,
@@ -25,6 +27,7 @@ public class ChatTopic implements Serializable {
             String userPhoto,
             boolean userSeen,
             boolean doctorSeen) {
+        this.userName = userName;
         this.title = title;
         this.description = description;
         this.userId = userId;
@@ -32,6 +35,14 @@ public class ChatTopic implements Serializable {
         this.userPhoto = userPhoto;
         this.userSeen = userSeen;
         this.doctorSeen = doctorSeen;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public boolean isDoctorSeen() {

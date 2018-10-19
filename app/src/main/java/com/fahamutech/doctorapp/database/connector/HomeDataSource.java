@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.database.connector;
+package com.fahamutech.doctorapp.database.connector;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;

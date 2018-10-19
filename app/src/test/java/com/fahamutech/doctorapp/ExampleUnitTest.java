@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp;
+package com.fahamutech.doctorapp;
 
 import org.junit.Test;
 

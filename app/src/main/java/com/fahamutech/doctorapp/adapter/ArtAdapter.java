@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.adapter;
+package com.fahamutech.doctorapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.activities.ReadActivity;
-import com.fahamutech.adminapp.model.Article;
-import com.fahamutech.adminapp.vholder.ArtViewHolder;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.ReadActivity;
+import com.fahamutech.doctorapp.model.Article;
+import com.fahamutech.doctorapp.vholder.ArtViewHolder;
 
 import java.util.List;
 

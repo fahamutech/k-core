@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.database.noSql;
+package com.fahamutech.doctorapp.database.noSql;
 
 import android.content.Context;
 

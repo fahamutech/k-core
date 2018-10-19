@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.activities;
+package com.fahamutech.doctorapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.model.Testimony;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.model.Testimony;
 
 public class SimpleImageViewer extends AppCompatActivity {
 

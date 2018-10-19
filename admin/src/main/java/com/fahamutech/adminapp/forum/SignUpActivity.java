@@ -15,7 +15,7 @@ import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.activities.MainActivity;
 import com.fahamutech.adminapp.forum.database.UserDataSource;
 import com.fahamutech.adminapp.forum.database.UserNoSqlDataBase;
-import com.fahamutech.adminapp.forum.model.Patient;
+import com.fahamutech.adminapp.forum.model.Doctor;
 import com.fahamutech.adminapp.session.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -129,21 +129,23 @@ public class SignUpActivity extends AppCompatActivity {
                                 photo = user.getPhotoUrl().toString();
                             } else photo = "";
 
-                            Patient patient = new Patient(
+                            //doctor model
+                            Doctor doctor = new Doctor(
                                     user.getDisplayName(),
                                     user.getEmail(),
                                     mAuth.getUid(),
                                     photo,
                                     phoneNumber.getText().toString(),
-                                    address.getText().toString()
+                                    address.getText().toString(),
+                                    Doctor.DOCTOR
                             );
 
                             //save user to local
-                            session.saveUser(patient);
+                            session.saveUser(doctor);
                             //save pay to localhost
 
 
-                            noSqlDatabase.createUser(patient);
+                            noSqlDatabase.createUser(doctor);
                             //hide login dialog
                             hideDialog();
                             //update profile

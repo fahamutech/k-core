@@ -1,13 +1,16 @@
-package com.fahamutech.adminapp.forum.database;
+package com.fahamutech.doctorapp.forum.database;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.fahamutech.adminapp.forum.model.ChatMessages;
-import com.fahamutech.adminapp.forum.model.OnlineStatus;
+import com.fahamutech.doctorapp.forum.model.ChatMessages;
+import com.fahamutech.doctorapp.forum.model.OnlineStatus;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +22,6 @@ public class ChatNoSqlDataBase extends NoSqlDatabase implements ChatDataSource {
         super(context);
     }
 
-    /**
-     * send a message to the specific user id
-     *
-     * @param docId        the id of the document to send
-     * @param chatMessages the message body
-     */
     @Override
     public void sendMessage(String docId, ChatMessages chatMessages, DataBaseCallback... dataBaseCallbacks) {
         firestore.collection(ForumC.FORUMS.name())
@@ -32,7 +29,32 @@ public class ChatNoSqlDataBase extends NoSqlDatabase implements ChatDataSource {
                 .collection(ForumC.FORUM_MESSAGE.name())
                 .document()
                 .set(chatMessages, SetOptions.merge())
-                .addOnSuccessListener(aVoid -> dataBaseCallbacks[0].then("done"))
+                .addOnSuccessListener(aVoid -> {
+
+                    JSONObject android = new JSONObject();
+                    JSONObject message = new JSONObject();
+                    JSONObject data = new JSONObject();
+                    JSONObject notification = new JSONObject();
+
+                    try {
+                        data.put("message", chatMessages.getMessage().trim());
+                        data.put("senderId", chatMessages.getSenderId().trim());
+                        data.put("type", chatMessages.getType());
+                        notification.put("title", "Kemifra");
+                        notification.put("body", chatMessages.getMessage().trim());
+                        android.put("priority", "high");
+                        android.put("data", data);
+                        android.put("notification", notification);
+                        message.put("android", android);
+                        message.put("topic", docId);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    dataBaseCallbacks[0].then(message);
+
+                })
                 .addOnFailureListener(e -> {
                     dataBaseCallbacks[1].then("failed");
                     Log.e(TAG, "Failed to send message");
@@ -117,11 +139,16 @@ public class ChatNoSqlDataBase extends NoSqlDatabase implements ChatDataSource {
     @Override
     public Object onlineStatus(String userId, DataBaseCallback... dataBaseCallbacks) {
         return firestore.collection(ForumC.FORUM_ONLINE.name())
-                .document(userId)
+                .whereEqualTo("flag", "doctor")
+                .limit(1)
                 .addSnapshotListener((documentSnapshot, e) -> {
                     if (documentSnapshot != null) {
-                        OnlineStatus onlineStatus = documentSnapshot.toObject(OnlineStatus.class);
-                        dataBaseCallbacks[0].then(onlineStatus);
+                        List<DocumentChange> documentChanges = documentSnapshot.getDocumentChanges();
+                        if (documentChanges.size() == 1) {
+                            String online = documentChanges.get(0).getDocument().getString("online");
+                            OnlineStatus onlineStatus = new OnlineStatus(online);
+                            dataBaseCallbacks[0].then(onlineStatus);
+                        }
                     }
                 });
     }

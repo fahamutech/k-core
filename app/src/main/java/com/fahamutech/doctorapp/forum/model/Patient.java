@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.model;
+package com.fahamutech.doctorapp.forum.model;
 
 import java.io.Serializable;
 

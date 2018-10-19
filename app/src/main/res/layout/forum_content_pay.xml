@@ -6,24 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fahamutech.adminapp.forum.PayActivity"
+    tools:context="com.fahamutech.doctorapp.forum.PayActivity"
     tools:showIn="@layout/forum_activity_pay">
 
 
-    <!--<WebView-->
-    <!--android:id="@+id/pay_webview"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:layout_margin="8dp"
+            android:id="@+id/pay_card_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             app:contentPadding="8dp">
 
             <LinearLayout
@@ -72,61 +68,59 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
+                    android:id="@+id/pay_confirm"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
-                    android:id="@+id/confirm"
-                    android:layout_margin="8dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:text="@string/confirm" />
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
-
 
         <!--confirm-->
         <android.support.v7.widget.CardView
+            android:id="@+id/pay_card_call"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:contentPadding="8dp"
-            android:layout_height="wrap_content">
+            app:contentPadding="8dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="4dp"
-                    android:textAlignment="center"
-                    android:text="@string/pay_confirm"
                     style="@style/TextAppearance.AppCompat.Subhead"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    <Button
-                        android:layout_width="0dp"
-                        android:text="@string/call"
-                        android:id="@+id/pay_confirm_call"
-                        android:drawableLeft="@drawable/ic_forum_call"
-                        android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_forum_call" />
+                    android:padding="4dp"
+                    android:text="@string/pay_confirm"
+                    android:textAlignment="center" />
 
-                    <Button
-                        android:layout_width="0dp"
-                        android:text="@string/message"
-                        android:id="@+id/pay_confirm_message"
-                        android:drawableLeft="@drawable/ic_forum_add_message"
-                        android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_forum_add_message" />
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:weightSum="2">-->
 
-                </LinearLayout>
+                    <!--<Button-->
+                        <!--android:id="@+id/pay_confirm_call"-->
+                        <!--style="?android:attr/buttonBarButtonStyle"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="2"-->
+                        <!--android:drawableLeft="@drawable/ic_forum_call"-->
+                        <!--android:drawableStart="@drawable/ic_forum_call"-->
+                        <!--android:text="@string/call" />-->
+
+                <!--</LinearLayout>-->
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

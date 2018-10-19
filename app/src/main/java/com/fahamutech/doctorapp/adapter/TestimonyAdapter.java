@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.adapter;
+package com.fahamutech.doctorapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.activities.SimpleImageViewer;
-import com.fahamutech.adminapp.model.Testimony;
-import com.fahamutech.adminapp.vholder.TestViewHolder;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.SimpleImageViewer;
+import com.fahamutech.doctorapp.model.Testimony;
+import com.fahamutech.doctorapp.vholder.TestViewHolder;
 
 import java.util.List;
 

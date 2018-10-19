@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.fragment;
+package com.fahamutech.doctorapp.forum.fragment;
 
 
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.database.PostNoSqlDataBase;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.database.PostNoSqlDataBase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.ListenerRegistration;
 
@@ -21,8 +21,6 @@ import com.google.firebase.firestore.ListenerRegistration;
 public class MyChatFragment extends Fragment {
 
     private ListenerRegistration listenerRegistration;
-    private PostNoSqlDataBase dataSource;
-    private String uid;
 
     public MyChatFragment() {
     }
@@ -31,14 +29,14 @@ public class MyChatFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //user id
-        uid = FirebaseAuth.getInstance().getUid();
+        String uid = FirebaseAuth.getInstance().getUid();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.forum_my_chart_fragment, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.my_chart_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //add listener to my chart fragment
-        dataSource = new PostNoSqlDataBase(getContext());
+        PostNoSqlDataBase dataSource = new PostNoSqlDataBase(getContext());
         listenerRegistration = dataSource.getMyChatPost(uid, recyclerView, getContext());
         return view;
     }
@@ -48,7 +46,6 @@ public class MyChatFragment extends Fragment {
         if (listenerRegistration != null) {
             listenerRegistration.remove();
         }
-        dataSource.offline(uid);
         super.onDestroy();
     }
 }

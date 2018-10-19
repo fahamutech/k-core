@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.adapter;
+package com.fahamutech.doctorapp.forum.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.GetTimeAgo;
-import com.fahamutech.adminapp.forum.MyChatActivity;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.forum.GetTimeAgo;
+import com.fahamutech.doctorapp.forum.MyChatActivity;
 
-import com.fahamutech.adminapp.forum.database.PostDataSource;
-import com.fahamutech.adminapp.forum.database.PostNoSqlDataBase;
-import com.fahamutech.adminapp.forum.model.ChatTopic;
+import com.fahamutech.doctorapp.forum.database.PostDataSource;
+import com.fahamutech.doctorapp.forum.database.PostNoSqlDataBase;
+import com.fahamutech.doctorapp.forum.model.ChatTopic;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 

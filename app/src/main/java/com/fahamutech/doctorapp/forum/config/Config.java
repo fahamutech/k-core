@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.forum.config;
+package com.fahamutech.doctorapp.forum.config;
 
 import android.support.v7.app.AppCompatActivity;
 

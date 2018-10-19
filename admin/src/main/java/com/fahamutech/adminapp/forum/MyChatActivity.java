@@ -27,16 +27,20 @@ import com.fahamutech.adminapp.forum.adapter.MyChatMessagesAdapter;
 import com.fahamutech.adminapp.forum.database.ChatDataSource;
 import com.fahamutech.adminapp.forum.database.ChatNoSqlDataBase;
 import com.fahamutech.adminapp.forum.database.DataBaseCallback;
+import com.fahamutech.adminapp.forum.message.MessageUtils;
 import com.fahamutech.adminapp.forum.model.ChatEnum;
 import com.fahamutech.adminapp.forum.model.ChatMessages;
 import com.fahamutech.adminapp.forum.model.ChatTopic;
-import com.fahamutech.adminapp.forum.model.OnlineStatus;
+import com.fahamutech.adminapp.forum.model.DoctorOnlineStatus;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,6 +67,7 @@ public class MyChatActivity extends AppCompatActivity {
     private ListenerRegistration onlineListener;
     private MyChatMessagesAdapter myChatMessagesAdapter;
     private boolean seenFlag;
+    private MessageUtils messageUtils;
 
 
     @Override
@@ -82,7 +87,7 @@ public class MyChatActivity extends AppCompatActivity {
         //get the chat topic object
         chatTopic = (ChatTopic) getIntent().getSerializableExtra("_chat_topic_");
         if (chatTopic != null) {
-            actionBar.setTitle(chatTopic.getTitle());
+            actionBar.setTitle(chatTopic.getUserName());
             //fab
             fabActions();
             //testing
@@ -95,6 +100,8 @@ public class MyChatActivity extends AppCompatActivity {
             //addTypeListener();
             seenFlag = getIntent().getBooleanExtra("_doctor_", false);
             //updateSeenFlags(seenFlag);
+
+            messageUtils = new MessageUtils();
         }
     }
 
@@ -130,8 +137,8 @@ public class MyChatActivity extends AppCompatActivity {
         //set online listener
         onlineListener = (ListenerRegistration)
                 chatDataSource.onlineStatus(chatTopic.getUserId(), (DataBaseCallback) data -> {
-                    OnlineStatus onlineStatus = (OnlineStatus) data;
-                    actionBar.setSubtitle(onlineStatus.getOnline());
+                    DoctorOnlineStatus doctorOnlineStatus = (DoctorOnlineStatus) data;
+                    actionBar.setSubtitle(doctorOnlineStatus.getOnline());
                 });
 
         //receive message
@@ -308,8 +315,12 @@ public class MyChatActivity extends AppCompatActivity {
                     chatMessages,
                     data -> {
                         //called when data is successful updated
-                        String s = (String) data;
-                        Log.e("write to chart*** : ", s);
+                        //called when data is successful updated
+                        JSONObject object = (JSONObject) data;
+                        Task<String> stringTask = messageUtils.sendFCMessage(object.toString());
+                        stringTask.addOnSuccessListener(s -> {
+                            Log.e("TAG****CHAT", "done send notification");
+                        });
                     },
                     data -> {
                         //called when data is not written

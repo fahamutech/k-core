@@ -1,8 +1,7 @@
-package com.fahamutech.adminapp.forum;
+package com.fahamutech.doctorapp.forum;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,27 +18,30 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.activities.MainActivity;
-import com.fahamutech.adminapp.forum.database.DataBaseCallback;
-import com.fahamutech.adminapp.forum.database.PostNoSqlDataBase;
-import com.fahamutech.adminapp.forum.database.UserDataSource;
-import com.fahamutech.adminapp.forum.database.UserNoSqlDataBase;
-import com.fahamutech.adminapp.forum.model.Patient;
-import com.fahamutech.adminapp.forum.model.UserSubscription;
-import com.fahamutech.adminapp.session.Session;
+import com.fahamutech.doctorapp.R;
+import com.fahamutech.doctorapp.activities.MainActivity;
+import com.fahamutech.doctorapp.forum.database.DataBaseCallback;
+import com.fahamutech.doctorapp.forum.database.PostNoSqlDataBase;
+import com.fahamutech.doctorapp.forum.database.UserDataSource;
+import com.fahamutech.doctorapp.forum.database.UserNoSqlDataBase;
+import com.fahamutech.doctorapp.forum.model.Patient;
+import com.fahamutech.doctorapp.forum.model.UserSubscription;
+import com.fahamutech.doctorapp.session.Session;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+    // private FloatingActionButton fab;
     private TextInputEditText phoneEditText;
     private TextInputEditText fullName;
     private TextInputEditText email;
@@ -75,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         session = new Session(this);
 
         //for testing
-        contactUs();
+        //contactUs();
 
         //listener
         buttons();
@@ -86,6 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         //subscription details
         getSubDetails();
+
+
     }
 
     private void getUserDetails() {
@@ -192,7 +196,7 @@ public class ProfileActivity extends AppCompatActivity {
         fullName = findViewById(R.id.profile_fullname);
         email = findViewById(R.id.profile_email);
         toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
+        //fab = findViewById(R.id.fab);
         phoneEditText = findViewById(R.id.profile_phone);
         addressTextEdit = findViewById(R.id.profile_address);
         updateProfileButton = findViewById(R.id.profile_update_profile);
@@ -273,9 +277,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void contactUs() {
-        fab.setOnClickListener(view ->
-                Snackbar.make(view, "Help text", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show());
+//        fab.setOnClickListener(view ->
+//                Snackbar.make(view, "Help text", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show());
     }
 
     @Override

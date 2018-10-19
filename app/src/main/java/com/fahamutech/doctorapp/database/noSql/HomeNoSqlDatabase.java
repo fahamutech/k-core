@@ -1,4 +1,4 @@
-package com.fahamutech.adminapp.database.noSql;
+package com.fahamutech.doctorapp.database.noSql;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,11 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.fahamutech.adminapp.adapter.CatAdapter;
-import com.fahamutech.adminapp.adapter.TestimonyAdapter;
-import com.fahamutech.adminapp.database.connector.HomeDataSource;
-import com.fahamutech.adminapp.model.Category;
-import com.fahamutech.adminapp.model.Testimony;
+import com.fahamutech.doctorapp.adapter.CatAdapter;
+import com.fahamutech.doctorapp.adapter.TestimonyAdapter;
+import com.fahamutech.doctorapp.database.connector.HomeDataSource;
+import com.fahamutech.doctorapp.model.Category;
+import com.fahamutech.doctorapp.model.Testimony;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
