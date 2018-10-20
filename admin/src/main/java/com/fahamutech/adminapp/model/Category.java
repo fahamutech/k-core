@@ -2,19 +2,21 @@ package com.fahamutech.adminapp.model;
 
 import java.io.Serializable;
 
-public class Category implements Serializable {
+public class Category implements Serializable, ICategory {
     private String id;
     private String name;
     private String description;
     private String image;
 
-    public Category(){
+    public Category() {
 
     }
 
-    public Category(String id, String name,String description, String image) {
+    public Category(String id, String name, String description, String image) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.image = image;
     }
 
     public String getId() {

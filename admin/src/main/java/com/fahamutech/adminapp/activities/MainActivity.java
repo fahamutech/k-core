@@ -18,8 +18,6 @@ import com.fahamutech.adminapp.forum.ForumMainActivity;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    //private DrawerLayout drawerLayout;
-    //private NavigationView navigationView;
 
     private FloatingActionButton fab;
     private ViewPager viewPager;
@@ -32,13 +30,6 @@ public class MainActivity extends AppCompatActivity {
         bindView();
         setSupportActionBar(toolbar);
 
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-////        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-
-        //navigationView.setNavigationItemSelectedListener(this);
-
         //tab layout
         initViewPager();
 
@@ -49,16 +40,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,53 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_new_category) {
+            startActivity(new Intent(this, CategoryActivity.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    //@SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 
     private void bindView() {
         toolbar = findViewById(R.id.toolbar);
-        // drawerLayout = findViewById(R.id.drawer_layout);
-        //navigationView = findViewById(R.id.nav_view);
         fab = findViewById(R.id.home_chat_fab);
         viewPager = findViewById(R.id.home_viewpager);
         tabLayout = findViewById(R.id.home_tab_layout);
-
-//        swipeRefreshLayout.setRefreshing(true);
     }
 
     private void initViewPager() {

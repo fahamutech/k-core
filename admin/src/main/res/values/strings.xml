@@ -91,4 +91,10 @@
     <string name="action_delete_article">Delete Article</string>
     <string name="action_delete_testimony">Delete Testimony</string>
     <string name="action_new_category">New Category</string>
+    <string name="title_activity_category">CategoryActivity</string>
+    <string name="cat_title">Name</string>
+    <string name="cat_description">Description</string>
+    <string name="cat_image">Image</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="new_category_image">New category image</string>
 </resources>

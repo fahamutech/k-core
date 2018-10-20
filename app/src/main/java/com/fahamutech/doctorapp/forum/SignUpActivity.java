@@ -94,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void checkIsLogin() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            goToProfile();
+            goToMainMenu(currentUser.getDisplayName());
         }
     }
 
@@ -102,8 +102,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void goToProfile() {
-        startActivity(new Intent(this, ProfileActivity.class));
+    private void goToMainMenu(String name) {
+        Toast.makeText(this, "Welcome, " + name + ". Now click chat button to proceed", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     /**
@@ -147,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                             //hide login dialog
                             hideDialog();
                             //update profile
-                            goToProfile();
+                            goToMainMenu(user.getDisplayName());
                         }
 
                     } else {

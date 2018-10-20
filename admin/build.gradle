@@ -57,7 +57,7 @@ dependencies {
     //chat
     // implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
     //image viewer
-   // implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
+    // implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
 
     //image picker
     //implementation 'com.github.esafirm.android-image-picker:imagepicker:x.y.z'

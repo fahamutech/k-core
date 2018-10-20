@@ -61,7 +61,11 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                         billingProcessor.getPurchaseTransactionDetails(getString(R.string.chat_product));
                 if (purchaseTransactionDetails != null) {
                     //Log.e("TAG**PURCHASE","purchase not equal to null");
+                    String string = purchaseTransactionDetails.purchaseInfo.purchaseData.toString();
+                    Log.e("TAG*****",string);
+
                     billingProcessor.purchase(this, getString(R.string.chat_product));
+
                 } else {
                     Log.e("TAG**PURCHASE null", "purchase is equal null");
                     billingProcessor.purchase(this, getString(R.string.chat_product));
