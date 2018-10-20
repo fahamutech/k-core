@@ -2,26 +2,29 @@ package com.fahamutech.doctorapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.fahamutech.doctorapp.R;
 import com.fahamutech.doctorapp.adapter.HomePageFragmentAdapter;
 import com.fahamutech.doctorapp.forum.ForumMainActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
 
     private Toolbar toolbar;
-    //private DrawerLayout drawerLayout;
-    //private NavigationView navigationView;
-
     private FloatingActionButton fab;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private BillingProcessor billingProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,89 +33,49 @@ public class MainActivity extends AppCompatActivity {
         bindView();
         setSupportActionBar(toolbar);
 
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-////        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-
-        //navigationView.setNavigationItemSelectedListener(this);
+        //billing
+        billingProcessor = BillingProcessor
+                .newBillingProcessor(this, getString(R.string.play_licence), this);
+        billingProcessor.initialize();
 
         //tab layout
         initViewPager();
 
-        //for testing
+        //pay
+        initVipContent();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void initVipContent() {
         fab.setOnClickListener(view -> {
-            Snackbar.make(view, "Chat is opening", Snackbar.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
+            Snackbar.make(view, "Chat is opening...", Snackbar.LENGTH_SHORT).show();
+            //startActivity(new Intent(this, ForumMainActivity.class));
+            if (billingProcessor.isOneTimePurchaseSupported()) {
+                TransactionDetails purchaseTransactionDetails =
+                        billingProcessor.getPurchaseTransactionDetails("android.test.purchased");
+                if (purchaseTransactionDetails != null) {
+                    //Log.e("TAG**PURCHASE","purchase not equal to null");
+                    billingProcessor.purchase(this, "android.test.purchased");
+                } else {
+                    Log.e("TAG**PURCHASE null", "purchase is equal null");
+                    billingProcessor.purchase(this, "android.test.purchased");
+                }
+            }
+            //billingProcessor.purchase(this, "android.test.purchased");
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    //@SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
     private void bindView() {
         toolbar = findViewById(R.id.toolbar);
-        // drawerLayout = findViewById(R.id.drawer_layout);
-        //navigationView = findViewById(R.id.nav_view);
         fab = findViewById(R.id.home_chat_fab);
         viewPager = findViewById(R.id.home_viewpager);
         tabLayout = findViewById(R.id.home_tab_layout);
-
-//        swipeRefreshLayout.setRefreshing(true);
     }
 
     private void initViewPager() {
@@ -120,6 +83,36 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.setAdapter(new HomePageFragmentAdapter(getSupportFragmentManager()));
+    }
 
+    @Override
+    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
+        Log.e("PAY PURCHASED", productId);
+        //todo : check the date of the product purchase in order to consume it
+        startActivity(new Intent(this, ForumMainActivity.class));
+        // billingProcessor.consumePurchase(productId);
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+        Log.e("PAY RESTORE", "purchase restored");
+    }
+
+    @Override
+    public void onBillingError(int errorCode, @Nullable Throwable error) {
+        Log.e("PAY ERROR", "error when try to bill :-> code " + String.valueOf(errorCode));
+    }
+
+    @Override
+    public void onBillingInitialized() {
+        Log.e("TAG BILL", "payment is initialized");
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (billingProcessor != null) {
+            billingProcessor.release();
+        }
+        super.onDestroy();
     }
 }

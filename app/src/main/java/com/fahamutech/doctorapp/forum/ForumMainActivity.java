@@ -42,12 +42,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 import java.util.List;
 
-public class ForumMainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
+public class ForumMainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private PostNoSqlDataBase noSqlDatabase;
-    private BillingProcessor billingProcessor;
-    private static String LICENCE="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7BAMIuoziy0kXDwLABTSARN9mkLYqoacwKlvId88xM06ExC4SDwaU8I9zXYNw545bZajEUKwA/NbZEbBkwdXEacxzlPu7jMbVhKOrVp7rOOaCVVOa+1WBCG0N4m8v3Gz2gEADZGTsOPOL3BKIANfyD4wbtz02lIR154eUM6Kggt8Ld1KRmzaxVqTt6I5+e3sKk9JAwjfBTmtA6U/lRjTJ8i4R2COY1n5PWguQjcTZxgP4FCb4K9RL6wOiGyuQZJWa9wizSj9DDiycy2AhSsUnxkAkMSnFe0tXTm8kh5GqiPJa9zU0LaAFIw4d0jhiTgLl7Ediiqf/i2ya1KRpac2wIDAQAB";
 
     @Override
     protected void onStart() {
@@ -67,19 +65,12 @@ public class ForumMainActivity extends AppCompatActivity implements BillingProce
             supportActionBar.setTitle("Kemifra Chat");
         }
 
-        //initiate pay
-        // doesn't bind
-        billingProcessor = BillingProcessor.newBillingProcessor(this, LICENCE, this);
-        billingProcessor.initialize(); // binds
-
         //render the view
         iniUI();
         //check if user is exist
         checkIsLogin();
 
         //check pay
-        //checkThePay();
-        pay();
     }
 
     @Override
@@ -277,10 +268,6 @@ public class ForumMainActivity extends AppCompatActivity implements BillingProce
         return super.onOptionsItemSelected(item);
     }
 
-    private void pay(){
-        billingProcessor.purchase(this,"android.test.purchased");
-    }
-
     private void checkThePay() {
         Session session = new Session(this);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -317,34 +304,6 @@ public class ForumMainActivity extends AppCompatActivity implements BillingProce
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
-        Log.e("TAG PURCHASED", productId);
-        //billingProcessor.consumePurchase(productId);
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-        Log.e("TAG PURCHASE", "purchase restore");
-    }
-
-    @Override
-    public void onBillingError(int errorCode, @Nullable Throwable error) {
-        Log.e("TAG BILLING ERROR", String.valueOf(errorCode));
-    }
-
-    @Override
-    public void onBillingInitialized() {
-        Log.e("TAG BILL", "bill initiated");
-    }
-
-    @Override
     protected void onDestroy() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -353,9 +312,6 @@ public class ForumMainActivity extends AppCompatActivity implements BillingProce
             } catch (NullPointerException e) {
                 new PostNoSqlDataBase(this).offline(currentUser.getUid());
             }
-        }
-        if (billingProcessor != null) {
-            billingProcessor.release();
         }
         super.onDestroy();
     }
