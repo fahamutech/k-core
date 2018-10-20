@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
             //startActivity(new Intent(this, ForumMainActivity.class));
             if (billingProcessor.isOneTimePurchaseSupported()) {
                 TransactionDetails purchaseTransactionDetails =
-                        billingProcessor.getPurchaseTransactionDetails("android.test.purchased");
+                        billingProcessor.getPurchaseTransactionDetails(getString(R.string.chat_product));
                 if (purchaseTransactionDetails != null) {
                     //Log.e("TAG**PURCHASE","purchase not equal to null");
-                    billingProcessor.purchase(this, "android.test.purchased");
+                    billingProcessor.purchase(this, getString(R.string.chat_product));
                 } else {
                     Log.e("TAG**PURCHASE null", "purchase is equal null");
-                    billingProcessor.purchase(this, "android.test.purchased");
+                    billingProcessor.purchase(this, getString(R.string.chat_product));
                 }
             }
             //billingProcessor.purchase(this, "android.test.purchased");
