@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -45,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
     private MaterialDialog loginDialog;
 
     private Session session;
+    private TextView textView;
 
     @Override
     protected void onStart() {
@@ -83,6 +85,8 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton = findViewById(R.id.siginup);
         phoneNumber = findViewById(R.id.siginup_phone);
         address = findViewById(R.id.siginup_address);
+        textView=findViewById(R.id.siginup_privacy);
+        //textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
@@ -94,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void checkIsLogin() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            goToProfile();
+            goToMain();
         }
     }
 
@@ -102,8 +106,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void goToProfile() {
-        startActivity(new Intent(this, ProfileActivity.class));
+    private void goToMain() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     /**
@@ -149,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity {
                             //hide login dialog
                             hideDialog();
                             //update profile
-                            goToProfile();
+                            goToMain();
                         }
 
                     } else {
@@ -227,6 +231,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if (account != null) firebaseAuthWithGoogle(account);
                 else {
                     Toast.makeText(this, "Sign in failed, Try again", Toast.LENGTH_SHORT).show();
+                    hideDialog();
                 }
 
             } catch (ApiException ignore) {

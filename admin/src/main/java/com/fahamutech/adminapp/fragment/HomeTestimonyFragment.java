@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.database.connector.HomeDataSource;
 import com.fahamutech.adminapp.database.noSql.HomeNoSqlDatabase;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class HomeTestimonyFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ListenerRegistration listenerRegistration;
 
     @Nullable
     @Override
@@ -31,9 +33,17 @@ public class HomeTestimonyFragment extends Fragment {
     private View initView(View view, HomeDataSource homeDataSource) {
         recyclerView = view.findViewById(R.id.testimony_cat_recy);
         swipeRefreshLayout = view.findViewById(R.id.testimony_cat_swipe);
-        homeDataSource.getTestimony(recyclerView, swipeRefreshLayout);
+        listenerRegistration = (ListenerRegistration) homeDataSource.getTestimony(recyclerView, swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() ->
-                homeDataSource.getTestimony(recyclerView, swipeRefreshLayout));
+                listenerRegistration = (ListenerRegistration) homeDataSource.getTestimony(recyclerView, swipeRefreshLayout));
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+        }
+        super.onDestroy();
     }
 }

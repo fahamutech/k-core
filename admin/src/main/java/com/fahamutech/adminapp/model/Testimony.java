@@ -2,7 +2,7 @@ package com.fahamutech.adminapp.model;
 
 import java.io.Serializable;
 
-public class Testimony implements Serializable {
+public class Testimony implements Serializable , ITestimony {
     private String id;
     private String image;
     private String date;
@@ -11,8 +11,7 @@ public class Testimony implements Serializable {
 
     }
 
-    public Testimony(String id, String image, String date) {
-        this.id = id;
+    public Testimony(String image, String date) {
         this.image = image;
         this.date = date;
     }

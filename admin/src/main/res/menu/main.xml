@@ -29,6 +29,7 @@
     <item
         android:id="@+id/action_delete_testimony"
         android:orderInCategory="500"
+        android:visible="false"
         android:title="@string/action_delete_testimony"
         app:showAsAction="never" />
 </menu>

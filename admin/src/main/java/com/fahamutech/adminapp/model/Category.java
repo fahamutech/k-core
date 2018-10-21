@@ -12,8 +12,7 @@ public class Category implements Serializable, ICategory {
 
     }
 
-    public Category(String id, String name, String description, String image) {
-        this.id = id;
+    public Category(String name, String description, String image) {
         this.name = name;
         this.description = description;
         this.image = image;

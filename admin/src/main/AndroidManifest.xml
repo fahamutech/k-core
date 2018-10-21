@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".forum.ForumMainActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>
+            android:parentActivityName=".activities.MainActivity" />
 
         <service android:name=".forum.message.Notification">
             <intent-filter>
@@ -85,6 +85,11 @@
             android:label="@string/title_activity_category"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.NewArticleActivity"
+            android:label="@string/title_activity_testimony"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

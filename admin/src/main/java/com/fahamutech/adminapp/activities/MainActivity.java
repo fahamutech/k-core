@@ -14,14 +14,25 @@ import android.view.MenuItem;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.adapter.HomePageFragmentAdapter;
 import com.fahamutech.adminapp.forum.ForumMainActivity;
+import com.fahamutech.adminapp.forum.SignUpActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-
     private FloatingActionButton fab;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+
+    @Override
+    protected void onStart() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser==null){
+           startActivity(new Intent(this, SignUpActivity.class));
+        }
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser==null){
+            startActivity(new Intent(this, SignUpActivity.class));
+        }
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -56,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_new_category) {
             startActivity(new Intent(this, CategoryActivity.class));
             return true;
+        }else if (id==R.id.action_new_article){
+            startActivity(new Intent(this,NewArticleActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -74,6 +96,5 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.setAdapter(new HomePageFragmentAdapter(getSupportFragmentManager()));
-
     }
 }

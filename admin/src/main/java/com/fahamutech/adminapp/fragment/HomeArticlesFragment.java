@@ -13,28 +13,37 @@ import android.view.ViewGroup;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.database.connector.HomeDataSource;
 import com.fahamutech.adminapp.database.noSql.HomeNoSqlDatabase;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class HomeArticlesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private HomeDataSource homeDataSource;
+    private ListenerRegistration listenerRegistration;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_home, container, false);
-        return initView(inflate,new HomeNoSqlDatabase(inflate.getContext()));
+        return initView(inflate, new HomeNoSqlDatabase(inflate.getContext()));
     }
 
-    private View initView(View view,HomeDataSource homeDataSource) {
+    private View initView(View view, HomeDataSource homeDataSource) {
         recyclerView = view.findViewById(R.id.home_cat_recy);
         swipeRefreshLayout = view.findViewById(R.id.home_cat_swipe);
-        homeDataSource.getCategory(recyclerView, swipeRefreshLayout);
+        listenerRegistration = (ListenerRegistration) homeDataSource.getCategory(recyclerView, swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            homeDataSource.getCategory(recyclerView, swipeRefreshLayout);
+            listenerRegistration = (ListenerRegistration) homeDataSource.getCategory(recyclerView, swipeRefreshLayout);
         });
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+        }
+        super.onDestroy();
     }
 }

@@ -42,10 +42,9 @@
     <string name="profile">Profile</string>
     <string name="title_activity_my_chat">MyChatActivity</string>
     <string name="message">Message…</string>
-    <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and
-        typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and scrambled it
-        to make a type specimen book.
+    <string name="dummy_text">Before using the application ypu must sign in. Provide your mobile number and
+        address then click the button below. For privacy policy visit:
+        https://www.freeprivacypolicy.com/privacy/view/43808ba654840f1665a492d5e2ee0f11
     </string>
     <string name="buble_image">buble_image</string>
     <string name="topic">Topic</string>
@@ -97,4 +96,7 @@
     <string name="cat_image">Image</string>
     <string name="upload_image">Upload Image</string>
     <string name="new_category_image">New category image</string>
+    <string name="title_activity_testimony">TestimonyActivity</string>
+    <string name="upload">Upload</string>
+    <string name="new_article">New Article</string>
 </resources>
