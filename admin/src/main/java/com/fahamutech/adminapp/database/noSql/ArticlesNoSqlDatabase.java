@@ -9,8 +9,11 @@ import android.util.Log;
 
 import com.fahamutech.adminapp.adapter.ArtAdapter;
 import com.fahamutech.adminapp.database.connector.ArticleDataSource;
+import com.fahamutech.adminapp.forum.database.DataBaseCallback;
 import com.fahamutech.adminapp.model.Article;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.List;
 
@@ -21,8 +24,8 @@ public class ArticlesNoSqlDatabase extends NoSqlDatabase implements ArticleDataS
     }
 
     @Override
-    public void getArticles(String categoryId, RecyclerView recyclerView,
-                            SwipeRefreshLayout swipeRefreshLayout) {
+    public void getAllById(String categoryId, RecyclerView recyclerView,
+                           SwipeRefreshLayout swipeRefreshLayout) {
         swipeRefreshLayout.setRefreshing(true);
         firestore.collection(NoSqlColl.ARTICLES.name())
                 .whereEqualTo("categoryId", categoryId)
@@ -40,4 +43,45 @@ public class ArticlesNoSqlDatabase extends NoSqlDatabase implements ArticleDataS
                     swipeRefreshLayout.setRefreshing(false);
                 });
     }
+
+    @Override
+    public void getAll(DataBaseCallback... callbacks) {
+        firestore.collection(NoSqlColl.ARTICLES.name()).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots != null) {
+                        List<Article> articles = queryDocumentSnapshots.toObjects(Article.class);
+                        if (callbacks != null) callbacks[0].then(articles);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    if (callbacks != null) callbacks[1].then("fail " + e.getLocalizedMessage());
+                });
+    }
+
+    @Override
+    public void createArticle(Article article, DataBaseCallback... callbacks) {
+        DocumentReference document = firestore.collection(NoSqlColl.ARTICLES.name()).document();
+        article.setId(document.getId());
+        document.set(article, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> {
+                    if (callbacks != null) callbacks[0].then("done");
+                })
+                .addOnFailureListener(e -> {
+                    if (callbacks != null) callbacks[1].then("fail " + e.getLocalizedMessage());
+                });
+    }
+
+    @Override
+    public void deleteArticle(String docId, DataBaseCallback... callbacks) {
+        firestore.collection(NoSqlColl.ARTICLES.name()).document(docId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    if (callbacks != null) callbacks[0].then("done");
+                })
+                .addOnFailureListener(e -> {
+                    if (callbacks != null) callbacks[1].then("fail " + e.getLocalizedMessage());
+                });
+    }
+
+
 }

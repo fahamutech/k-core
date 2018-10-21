@@ -5,16 +5,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import com.fahamutech.adminapp.activities.MainActivity;
 import com.fahamutech.adminapp.adapter.CatAdapter;
 import com.fahamutech.adminapp.adapter.TestimonyAdapter;
-import com.fahamutech.adminapp.database.DataBaseCallback;
 import com.fahamutech.adminapp.database.connector.HomeDataSource;
 import com.fahamutech.adminapp.model.Category;
 import com.fahamutech.adminapp.model.Testimony;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
@@ -30,6 +33,9 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     if (queryDocumentSnapshots != null) {
                         List<Category> categories = queryDocumentSnapshots.toObjects(Category.class);
+                        //save this list of category for later use
+                        // MainActivity.categoryList = categories;
+                        //new Session(context).saveCategories(categories);
                         CatAdapter catAdapter = new CatAdapter(categories, context);
                         recyclerView.setLayoutManager(new GridLayoutManager(this.context, 2));
                         recyclerView.setAdapter(catAdapter);
@@ -42,6 +48,23 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                 });
     }
 
+    public void getAllCategory(Spinner spinner) {
+        firestore.collection(NoSqlColl.CATEGORY.name())
+                .addSnapshotListener((QuerySnapshot snapshots, FirebaseFirestoreException e) -> {
+                    if (snapshots != null) {
+                        List<String> strings = new ArrayList<>();
+                        List<Category> cat = snapshots.toObjects(Category.class);
+                        for (Category a : cat) {
+                            strings.add(a.getName());
+                        }
+                        ArrayAdapter<String> adapter
+                                = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, strings);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                    }
+                });
+    }
 
     public Object getTestimony(RecyclerView recyclerView, SwipeRefreshLayout swipeRefreshLayout) {
 

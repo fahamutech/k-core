@@ -69,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             // or get a single image only
             Image image = ImagePicker.getFirstImageOrNull(data);
             //image.getPath();
-            Log.e("TAG IMAGE", image.getPath());
+            //Log.e("TAG IMAGE", image.getPath());
             Bitmap bitmap = BitmapFactory.decodeFile(image.getPath());
             Glide.with(this).load(bitmap).into(imageView);
             imageUrl = image;

@@ -15,10 +15,9 @@ public class Article implements Serializable {
 
     }
 
-    public Article(String categoryId, String id, String date, String content, String packageType,
+    public Article(String categoryId, String date, String content, String packageType,
                    String image, String title) {
         this.categoryId = categoryId;
-        this.id = id;
         this.date = date;
         this.content = content;
         this.packageType = packageType;

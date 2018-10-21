@@ -61,9 +61,9 @@ public class CategoryContent extends AppCompatActivity {
     }
 
     private void initContent(ArticleDataSource articleDataSource) {
-        articleDataSource.getArticles(categoryId, recyclerView, swipeRefreshLayout);
+        articleDataSource.getAllById(categoryId, recyclerView, swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() ->
-                articleDataSource.getArticles(categoryId, recyclerView, swipeRefreshLayout));
+                articleDataSource.getAllById(categoryId, recyclerView, swipeRefreshLayout));
 
     }
 

@@ -22,17 +22,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/testimony_image"
-                    android:contentDescription="@string/description"
-                    android:src="@drawable/ch"
-                    android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ch" />
+
+                <Button
+                    android:id="@+id/testimony_u"
+                    style="?android:buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_image" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/testimony_title"
@@ -42,26 +51,37 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <Spinner
+                    android:id="@+id/testimony_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin">
+
+                </Spinner>
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/testimony_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:hint="@string/message"
                         android:inputType="textMultiLine"
-                        android:lines="10"
-                        android:hint="@string/message" />
+                        android:lines="10" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:layout_width="match_parent"
                     android:id="@+id/testimony_upload"
-                    android:layout_height="wrap_content"
                     style="?android:buttonBarButtonStyle"
-                    android:text="@string/upload"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/card_margin"
+                    android:text="@string/upload" />
 
 
             </LinearLayout>

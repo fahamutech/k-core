@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+
     @Override
     protected void onStart() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     private void bindView() {
         toolbar = findViewById(R.id.toolbar);
