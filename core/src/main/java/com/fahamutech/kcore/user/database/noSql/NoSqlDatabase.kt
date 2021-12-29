@@ -1,24 +1,24 @@
-package com.fahamutech.kcore.user.database.noSql;
+package com.fahamutech.kcore.user.database.noSql
 
-import android.content.Context;
+import android.content.Context
+import com.fahamutech.kcore.utils.getKCoreFirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
+abstract class NoSqlDatabase internal constructor(context: Context) {
+    @JvmField
+    var firestore: FirebaseFirestore
 
-public abstract class NoSqlDatabase {
+    @JvmField
+    protected var context: Context
 
-    FirebaseFirestore firestore;
-    protected Context context;
-
-    NoSqlDatabase(Context context) {
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .setSslEnabled(true)
-                .build();
-        this.firestore = FirebaseFirestore.getInstance();
-        this.firestore.setFirestoreSettings(settings);
-        this.context = context;
+    init {
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .setSslEnabled(true)
+            .build()
+        firestore = FirebaseFirestore.getInstance(getKCoreFirebaseApp(context))
+        firestore.firestoreSettings = settings
+        this.context = context
     }
-
-
 }

@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.5.31'
-    ext.versionName = "2021.12.29-build.8-v1.0"
+    ext.versionName = "2021.12.29-build.9-v1.1"
 
     repositories {
         google()

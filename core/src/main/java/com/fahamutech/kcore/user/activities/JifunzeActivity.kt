@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.fahamutech.kcore.R
 import com.fahamutech.kcore.user.adapter.HomePageFragmentAdapter
+import com.fahamutech.kcore.utils.getKCoreFirebaseApp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
@@ -21,7 +22,7 @@ class JifunzeActivity : AppCompatActivity() {
     private var tabLayout: TabLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this)
+        getKCoreFirebaseApp(this)
         setContentView(R.layout.app_bar_main_user)
         bindView()
         setSupportActionBar(toolbar)
