@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fahamutech.adminapp.forum.PayActivity"
+    tools:context="com.fahamutech.kcoreuser.forum.PayActivity"
     tools:showIn="@layout/forum_activity_pay">
 
 

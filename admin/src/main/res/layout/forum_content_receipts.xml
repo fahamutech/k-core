@@ -7,7 +7,7 @@
     android:id="@+id/receipt_swipe"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fahamutech.adminapp.forum.ReceiptsActivity"
+    tools:context="com.fahamutech.kcoreuser.forum.ReceiptsActivity"
     tools:showIn="@layout/forum_activity_receipts">
 
     <androidx.recyclerview.widget.RecyclerView

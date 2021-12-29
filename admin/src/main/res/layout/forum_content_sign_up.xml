@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/nathan"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fahamutech.adminapp.forum.SignUpActivity"
+    tools:context="com.fahamutech.kcoreuser.forum.SignUpActivity"
     tools:showIn="@layout/forum_activity_sign_up">
 
     <androidx.cardview.widget.CardView

@@ -79,7 +79,7 @@ afterEvaluate {
                 from components.release
 
                 // You can then customize attributes of the publication as shown below.
-                groupId = 'com.fahamutech.kcore'
+                groupId = 'com.fahamutech.kcoreadmin'
                 artifactId = 'admin'
                 version = versionName
             }
@@ -88,7 +88,7 @@ afterEvaluate {
                 // Applies the component for the debug build variant.
                 from components.debug
 
-                groupId = 'com.fahamutech.kcore'
+                groupId = 'com.fahamutech.kcoreadmin'
                 artifactId = 'admin-debug'
                 version = versionName
             }
