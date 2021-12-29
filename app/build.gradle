@@ -6,7 +6,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.fahamutech.doctorapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 2
         multiDexEnabled true
@@ -36,9 +36,6 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:20.0.2'
     implementation 'com.google.firebase:firebase-firestore:24.0.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
-    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -51,9 +48,6 @@ dependencies {
 
     //runtime
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
-    //multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation("com.github.esafirm.android-image-picker:imagepicker:1.13.1", {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
@@ -68,7 +62,6 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
@@ -100,4 +93,4 @@ afterEvaluate {
 }
 
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

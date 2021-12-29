@@ -13,27 +13,13 @@ import android.view.MenuItem;
 
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.adapter.HomePageFragmentAdapter;
-import com.fahamutech.adminapp.forum.ForumMainActivity;
-import com.fahamutech.adminapp.forum.SignUpActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class JifunzeAdminActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-
-
-    @Override
-    protected void onStart() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser==null){
-           startActivity(new Intent(this, SignUpActivity.class));
-        }
-        super.onStart();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +32,7 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
 
         //for testing
-        fab.setOnClickListener(view -> {
-            Snackbar.make(view, "Chat is opening", Snackbar.LENGTH_SHORT).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser==null){
-            startActivity(new Intent(this, SignUpActivity.class));
-        }
-        super.onResume();
+        fab.setOnClickListener(view -> onBackPressed());
     }
 
     @Override

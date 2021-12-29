@@ -154,7 +154,7 @@ public class CategoryActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
 
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, JifunzeAdminActivity.class));
                     finish();
                 });
     }
