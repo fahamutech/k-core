@@ -76,7 +76,7 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-//                from components.release
+                from components.release
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.fahamutech.doctoradmin'
@@ -86,7 +86,7 @@ afterEvaluate {
             // Creates a Maven publication called “debug”.
             debug(MavenPublication) {
                 // Applies the component for the debug build variant.
-//                from components.debug
+                from components.debug
 
                 groupId = 'com.fahamutech.doctoradmin'
                 artifactId = 'admin-debug'
