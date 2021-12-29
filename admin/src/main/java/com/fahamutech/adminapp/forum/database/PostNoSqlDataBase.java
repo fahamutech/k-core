@@ -2,7 +2,7 @@ package com.fahamutech.adminapp.forum.database;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 import com.fahamutech.adminapp.forum.adapter.AllChatFragmentAdapter;

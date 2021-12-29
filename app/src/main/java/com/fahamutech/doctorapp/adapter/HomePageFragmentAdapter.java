@@ -1,9 +1,8 @@
 package com.fahamutech.doctorapp.adapter;
-
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.fahamutech.doctorapp.fragment.HomeArticlesFragment;
 import com.fahamutech.doctorapp.fragment.HomeTestimonyFragment;
@@ -27,9 +26,9 @@ public class HomePageFragmentAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
-            return "Home";
+            return "Masomo";
         } else if (position == 1) {
-            return "Testimony";
+            return "Ushuhuda";
         }else return super.getPageTitle(position);
     }
 

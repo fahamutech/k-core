@@ -1,17 +1,15 @@
 package com.fahamutech.doctorapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.fahamutech.doctorapp.R;
-import com.fahamutech.doctorapp.forum.ForumMainActivity;
 import com.fahamutech.doctorapp.database.connector.ArticleDataSource;
 import com.fahamutech.doctorapp.database.noSql.ArticlesNoSqlDatabase;
 import com.fahamutech.doctorapp.model.Category;
@@ -42,22 +40,22 @@ public class CategoryContent extends AppCompatActivity {
             if (category != null) {
                 title = category.getName();
                 categoryId = category.getId();
-                supportActionBar.setTitle(title + "-" + "Contents");
+                supportActionBar.setTitle(title);
             } else if (!session.getLastCategory().isEmpty()) {
                 categoryId = session.getLastCategory();
                 title = session.getLastTitle();
-                supportActionBar.setTitle(title + "-" + "Contents");
+                supportActionBar.setTitle(title);
             }
         }
 
         //get articles
         initContent(new ArticlesNoSqlDatabase(this));
         //testing
-        fab.setOnClickListener(view -> {
-            Snackbar.make(view,
-                    "Chat opening...", Snackbar.LENGTH_LONG).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
-        });
+//        fab.setOnClickListener(view -> {
+//            Snackbar.make(view,
+//                    "Chat opening...", Snackbar.LENGTH_LONG).show();
+////            startActivity(new Intent(this, ForumMainActivity.class));
+//        });
     }
 
     private void initContent(ArticleDataSource articleDataSource) {
@@ -77,4 +75,9 @@ public class CategoryContent extends AppCompatActivity {
         session = new Session(this);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

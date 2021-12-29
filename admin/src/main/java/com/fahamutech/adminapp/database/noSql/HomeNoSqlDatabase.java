@@ -1,14 +1,13 @@
 package com.fahamutech.adminapp.database.noSql;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.fahamutech.adminapp.activities.MainActivity;
 import com.fahamutech.adminapp.adapter.CatAdapter;
 import com.fahamutech.adminapp.adapter.TestimonyAdapter;
 import com.fahamutech.adminapp.database.connector.HomeDataSource;

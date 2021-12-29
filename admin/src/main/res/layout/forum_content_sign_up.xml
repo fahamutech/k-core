@@ -9,7 +9,7 @@
     tools:context="com.fahamutech.adminapp.forum.SignUpActivity"
     tools:showIn="@layout/forum_activity_sign_up">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -37,13 +37,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dummy_text" />
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/siginup_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,15 +51,15 @@
                     android:drawableStart="@drawable/ic_forum_call"
                     android:hint="@string/phone"
                     android:inputType="phone" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/siginup_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:text="@string/address"
                     android:hint="@string/address"
                     android:inputType="textMultiLine" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/siginup"
@@ -81,6 +81,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </ScrollView>

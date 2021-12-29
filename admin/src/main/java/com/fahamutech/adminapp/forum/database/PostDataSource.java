@@ -1,9 +1,7 @@
 package com.fahamutech.adminapp.forum.database;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-
-import com.fahamutech.adminapp.forum.model.ChatTopic;
+import androidx.recyclerview.widget.RecyclerView;
 
 public interface PostDataSource {
 

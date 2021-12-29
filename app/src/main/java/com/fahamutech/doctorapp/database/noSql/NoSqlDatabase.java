@@ -2,6 +2,7 @@ package com.fahamutech.doctorapp.database.noSql;
 
 import android.content.Context;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 

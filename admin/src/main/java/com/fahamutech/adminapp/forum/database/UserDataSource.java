@@ -1,6 +1,6 @@
 package com.fahamutech.adminapp.forum.database;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.fahamutech.adminapp.forum.model.Doctor;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kemifra</string>
+    <string name="app_name">Kemifra v1</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -20,8 +20,8 @@
     <string name="description">description</string>
     <string name="title_activity_category_content">CategoryContent</string>
     <string name="title_activity_read">ReadActivity</string>
-    <string name="testimony">Testimony</string>
-    <string name="home">Home</string>
+    <string name="testimony">Shuhuda</string>
+    <string name="home">Masomo</string>
 
     <string name="title_activity_image">ImageActivity</string>
     <string name="dummy_button">Dummy Button</string>
@@ -93,4 +93,5 @@
     <string name="call">Call</string>
     <string name="play_licence">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg7BAMIuoziy0kXDwLABTSARN9mkLYqoacwKlvId88xM06ExC4SDwaU8I9zXYNw545bZajEUKwA/NbZEbBkwdXEacxzlPu7jMbVhKOrVp7rOOaCVVOa+1WBCG0N4m8v3Gz2gEADZGTsOPOL3BKIANfyD4wbtz02lIR154eUM6Kggt8Ld1KRmzaxVqTt6I5+e3sKk9JAwjfBTmtA6U/lRjTJ8i4R2COY1n5PWguQjcTZxgP4FCb4K9RL6wOiGyuQZJWa9wizSj9DDiycy2AhSsUnxkAkMSnFe0tXTm8kh5GqiPJa9zU0LaAFIw4d0jhiTgLl7Ediiqf/i2ya1KRpac2wIDAQAB</string>
     <string name="chat_product">fahamutech.test.product</string>
+    <string name="chat_button">chat_button</string>
 </resources>

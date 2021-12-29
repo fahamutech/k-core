@@ -1,6 +1,6 @@
 package com.fahamutech.adminapp.forum.config;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Config {
     private static Class<? extends AppCompatActivity> mainActivity;

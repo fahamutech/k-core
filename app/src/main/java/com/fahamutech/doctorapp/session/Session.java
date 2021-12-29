@@ -3,15 +3,13 @@ package com.fahamutech.doctorapp.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.fahamutech.doctorapp.forum.model.Patient;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 public class Session {
 
-    public static String PAY_OK = "AkjgaoHFuf687V";
-    public static String PAY_NOT_OK = "uy5rhgJFFjh";
-    public static String PAY_D = "T74r74jhkjklh";
+//    public static String PAY_OK = "AkjgaoHFuf687V";
+//    public static String PAY_NOT_OK = "uy5rhgJFFjh";
+//    public static String PAY_D = "T74r74jhkjklh";
 
     private SharedPreferences sharedPreferences;
     private String CAT = "_category_";
@@ -23,30 +21,30 @@ public class Session {
         sharedPreferences = context.getSharedPreferences("jhsffsaiuda", Context.MODE_PRIVATE);
     }
 
-    public void userPay(String pay) {
-        sharedPreferences.edit().putString(PAY, pay).apply();
-    }
+//    public void userPay(String pay) {
+//        sharedPreferences.edit().putString(PAY, pay).apply();
+//    }
+//
+//    public String getUserPay() {
+//        return sharedPreferences.getString(PAY, PAY_D);
+//    }
+//
+//    public void saveUser(Patient patient) {
+//        SharedPreferences.Editor edit = sharedPreferences.edit();
+//        Gson gson = new Gson();
+//        String s = gson.toJson(patient);
+//        edit.putString(PATIENT, s).apply();
+//    }
 
-    public String getUserPay() {
-        return sharedPreferences.getString(PAY, PAY_D);
-    }
-
-    public void saveUser(Patient patient) {
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String s = gson.toJson(patient);
-        edit.putString(PATIENT, s).apply();
-    }
-
-    public Patient getSavedUser() {
-        String string = sharedPreferences.getString(PATIENT, "");
-        if (string.isEmpty()) {
-            return null;
-        } else {
-            Gson gson = new Gson();
-            return gson.fromJson(string, Patient.class);
-        }
-    }
+//    public Patient getSavedUser() {
+//        String string = sharedPreferences.getString(PATIENT, "");
+//        if (string.isEmpty()) {
+//            return null;
+//        } else {
+//            Gson gson = new Gson();
+//            return gson.fromJson(string, Patient.class);
+//        }
+//    }
 
     public void saveLastCategory(String category) {
         sharedPreferences.edit().putString(CAT, category).apply();

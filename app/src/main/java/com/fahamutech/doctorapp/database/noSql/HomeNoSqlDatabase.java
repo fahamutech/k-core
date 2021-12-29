@@ -1,10 +1,10 @@
 package com.fahamutech.doctorapp.database.noSql;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 import com.fahamutech.doctorapp.adapter.CatAdapter;
@@ -12,8 +12,6 @@ import com.fahamutech.doctorapp.adapter.TestimonyAdapter;
 import com.fahamutech.doctorapp.database.connector.HomeDataSource;
 import com.fahamutech.doctorapp.model.Category;
 import com.fahamutech.doctorapp.model.Testimony;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QuerySnapshot;

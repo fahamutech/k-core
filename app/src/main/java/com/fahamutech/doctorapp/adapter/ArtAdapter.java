@@ -2,9 +2,9 @@ package com.fahamutech.doctorapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +47,7 @@ public class ArtAdapter extends RecyclerView.Adapter<ArtViewHolder> {
             Intent intent = new Intent(context, ReadActivity.class);
             intent.putExtra("_article", articles.get(position));
             context.startActivity(intent);
-            Snackbar.make(v, "Item clicked : " + position, Snackbar.LENGTH_SHORT).show();
+//            Snackbar.make(v, "Item clicked : " + position, Snackbar.LENGTH_SHORT).show();
         });
     }
 

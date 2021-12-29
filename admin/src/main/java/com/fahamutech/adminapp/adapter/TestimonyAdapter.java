@@ -2,12 +2,10 @@ package com.fahamutech.adminapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.activities.SimpleImageViewer;
-import com.fahamutech.adminapp.database.noSql.CategoryNoSqlDatabase;
 import com.fahamutech.adminapp.database.noSql.TestmonyNoSqlDatabase;
 import com.fahamutech.adminapp.model.Testimony;
 import com.fahamutech.adminapp.vholder.TestViewHolder;

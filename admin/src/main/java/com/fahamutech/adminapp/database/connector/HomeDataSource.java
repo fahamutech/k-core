@@ -1,9 +1,7 @@
 package com.fahamutech.adminapp.database.connector;
 
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
-
-import com.fahamutech.adminapp.database.DataBaseCallback;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 public interface HomeDataSource {
 

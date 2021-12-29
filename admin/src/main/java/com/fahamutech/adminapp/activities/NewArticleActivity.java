@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,9 +22,6 @@ import com.fahamutech.adminapp.R;
 import com.fahamutech.adminapp.database.connector.ArticleDataSource;
 import com.fahamutech.adminapp.database.noSql.ArticlesNoSqlDatabase;
 import com.fahamutech.adminapp.database.noSql.HomeNoSqlDatabase;
-import com.fahamutech.adminapp.model.Category;
-import com.fahamutech.adminapp.session.Session;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class NewArticleActivity extends AppCompatActivity {
 
