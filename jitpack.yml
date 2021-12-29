@@ -3,9 +3,6 @@ jdk:
 install:
   - echo "Running a custom install command"
   - ./gradlew clean
-  - ./gradlew :app:build
-  - ./gradlew :app:publishToMavenLocal
-  - ./gradlew :app:publish
-  - ./gradlew :admin:build
-  - ./gradlew :admin:publishToMavenLocal
-  - ./gradlew :admin:publish
+  - ./gradlew :core:build
+  - ./gradlew :core:publishToMavenLocal
+  - ./gradlew :core:publish

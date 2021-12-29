@@ -1,2 +1,2 @@
-include  ':app', ':admin'
-//include ':admin'
+include ':core'
+include ':demo'
