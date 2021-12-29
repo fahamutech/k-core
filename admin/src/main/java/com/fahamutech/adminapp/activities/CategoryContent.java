@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.fahamutech.adminapp.R;
-import com.fahamutech.adminapp.forum.ForumMainActivity;
 import com.fahamutech.adminapp.database.connector.ArticleDataSource;
 import com.fahamutech.adminapp.database.noSql.ArticlesNoSqlDatabase;
 import com.fahamutech.adminapp.model.Category;
@@ -54,9 +53,7 @@ public class CategoryContent extends AppCompatActivity {
         initContent(new ArticlesNoSqlDatabase(this));
         //testing
         fab.setOnClickListener(view -> {
-            Snackbar.make(view,
-                    "Chat opening...", Snackbar.LENGTH_LONG).show();
-            startActivity(new Intent(this, ForumMainActivity.class));
+
         });
     }
 

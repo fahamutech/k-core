@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.fahamutech.adminapp"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
         multiDexEnabled true
-        versionName "1.0"
+        versionName = versionName
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -29,31 +30,24 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //implementation project(':forum')
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-firestore:17.1.1'
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
-    implementation 'com.google.android.gms:play-services-auth:16.0.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.3'
-    implementation 'com.google.firebase:firebase-storage:16.0.3'
-    implementation 'com.google.firebase:firebase-functions:16.1.1'
+    implementation 'com.google.firebase:firebase-core:20.0.2'
+    implementation 'com.google.firebase:firebase-firestore:24.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     //runtime
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-
-    //multidex
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //chat
     // implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
@@ -66,19 +60,38 @@ dependencies {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
     })
 
-    //image viewer
-    //implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
     implementation 'com.bogdwellers:pinchtozoom:0.1'
 
     implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
 
-apply plugin: 'com.google.gms.google-services'
-repositories {
-    mavenCentral()
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.fahamutech.doctoradmin'
+                artifactId = 'admin'
+                version = versionName
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+//                from components.debug
+
+                groupId = 'com.fahamutech.doctoradmin'
+                artifactId = 'admin-debug'
+                version = versionName
+            }
+        }
+    }
 }

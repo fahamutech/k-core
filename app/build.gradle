@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.fahamutech.doctorapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 2
         multiDexEnabled true
-        versionName "1.0"
+        versionName = versionName
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -35,9 +36,6 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:20.0.2'
     implementation 'com.google.firebase:firebase-firestore:24.0.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
-    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -50,9 +48,6 @@ dependencies {
 
     //runtime
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
-    //multidex
-    implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation("com.github.esafirm.android-image-picker:imagepicker:1.13.1", {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
@@ -67,9 +62,35 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }
 
-apply plugin: 'com.google.gms.google-services'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+//                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.fahamutech.doctorapp'
+                artifactId = 'user'
+                version = versionName
+            }
+            // Creates a Maven publication called “debug”.
+            debug(MavenPublication) {
+                // Applies the component for the debug build variant.
+//                from components.debug
+
+                groupId = 'com.fahamutech.doctorapp'
+                artifactId = 'user-debug'
+                version = versionName
+            }
+        }
+    }
+}
+
+
+//apply plugin: 'com.google.gms.google-services'
