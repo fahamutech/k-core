@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context=".user.activities.JifunzeActivity">
+    tools:context=".user.activities.MasomoActivity">
 
 
     <!--&lt;!&ndash;services&ndash;&gt;-->

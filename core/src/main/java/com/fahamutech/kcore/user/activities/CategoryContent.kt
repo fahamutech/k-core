@@ -1,55 +1,51 @@
-package com.fahamutech.kcore.user.activities;
+package com.fahamutech.kcore.user.activities
 
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.os.Bundle
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatDrawableManager
+import androidx.appcompat.widget.Toolbar
+import com.fahamutech.kcore.R
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.fahamutech.kcore.user.database.connector.ArticleDataSource
+import com.fahamutech.kcore.user.database.noSql.ArticlesNoSqlDatabase
+import com.fahamutech.kcore.user.model.Category
+import com.fahamutech.kcore.user.session.Session
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+class CategoryContent : AppCompatActivity() {
+    private var session: Session? = null
+    private var recyclerView: RecyclerView? = null
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private var fab: FloatingActionButton? = null
+    private var toolbar: Toolbar? = null
+    private var title: String? = null
+    private var categoryId: String? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_category_content_user)
+        //        setSupportActionBar(toolbar);
+//        ActionBar supportActionBar = getSupportActionBar();
+        val category = intent.getSerializableExtra("_category") as Category?
 
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.user.database.connector.ArticleDataSource;
-import com.fahamutech.kcore.user.database.noSql.ArticlesNoSqlDatabase;
-import com.fahamutech.kcore.user.model.Category;
-import com.fahamutech.kcore.user.session.Session;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public class CategoryContent extends AppCompatActivity {
-
-    private Session session;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
-    private String title;
-    private String categoryId;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_content_user);
-        bindView();
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        Category category = (Category) getIntent().getSerializableExtra("_category");
-
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            if (category != null) {
-                title = category.getName();
-                categoryId = category.getId();
-                supportActionBar.setTitle(title);
-            } else if (!session.getLastCategory().isEmpty()) {
-                categoryId = session.getLastCategory();
-                title = session.getLastTitle();
-                supportActionBar.setTitle(title);
-            }
+//        if (supportActionBar != null) {
+//            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        if (category != null) {
+            title = category.name
+            categoryId = category.id
+            //                supportActionBar.setTitle(title);
+        } else if (!session!!.lastCategory.isEmpty()) {
+            categoryId = session!!.lastCategory
+            title = session!!.lastTitle
+            //                supportActionBar.setTitle(title);
         }
+        bindView()
+        //        }
 
         //get articles
-        initContent(new ArticlesNoSqlDatabase(this));
+        initContent(ArticlesNoSqlDatabase(this))
         //testing
 //        fab.setOnClickListener(view -> {
 //            Snackbar.make(view,
@@ -58,26 +54,34 @@ public class CategoryContent extends AppCompatActivity {
 //        });
     }
 
-    private void initContent(ArticleDataSource articleDataSource) {
-        articleDataSource.getArticles(categoryId, recyclerView, swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() ->
-                articleDataSource.getArticles(categoryId, recyclerView, swipeRefreshLayout));
-
+    private fun initContent(articleDataSource: ArticleDataSource) {
+        articleDataSource.getArticles(categoryId, recyclerView, swipeRefreshLayout)
+        swipeRefreshLayout!!.setOnRefreshListener {
+            articleDataSource.getArticles(
+                categoryId,
+                recyclerView,
+                swipeRefreshLayout
+            )
+        }
     }
 
-    private void bindView() {
-        recyclerView = findViewById(R.id.article_recy);
-        swipeRefreshLayout = findViewById(R.id.article_swipe);
-        fab = findViewById(R.id.fab);
-        toolbar = findViewById(R.id.toolbar);
+    private fun bindView() {
+        recyclerView = findViewById(R.id.article_recy)
+        swipeRefreshLayout = findViewById(R.id.article_swipe)
+        fab = findViewById(R.id.fab)
+        toolbar = findViewById(R.id.toolbar)
+        toolbar?.title = title
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.md_nav_back)
+        toolbar?.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         //start session
-        session = new Session(this);
+        session = Session(this)
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

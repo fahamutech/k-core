@@ -39,7 +39,7 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     categories.addAll(queryDocumentSnapshots.toObjects(Category.class));
                     CatAdapter catAdapter = new CatAdapter(categories, context);
-                    recyclerView.setLayoutManager(new GridLayoutManager(this.context, 2));
+                    recyclerView.setLayoutManager(new GridLayoutManager(this.context, 1));
                     recyclerView.setAdapter(catAdapter);
                     swipeRefreshLayout.setRefreshing(false);
                     Log.e("TAG***", " done get categories");

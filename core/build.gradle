@@ -5,7 +5,6 @@ apply plugin: 'maven-publish'
 android {
     compileSdkVersion 31
     defaultConfig {
-//        applicationId "com.fahamutech.adminapp"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1

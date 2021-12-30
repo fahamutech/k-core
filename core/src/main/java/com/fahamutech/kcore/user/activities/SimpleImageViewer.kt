@@ -1,57 +1,52 @@
-package com.fahamutech.kcore.user.activities;
+package com.fahamutech.kcore.user.activities
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.fahamutech.kcore.R
+import androidx.appcompat.content.res.AppCompatResources
+import android.content.Intent
+import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
+import com.bumptech.glide.Glide
+import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler
+import com.fahamutech.kcore.user.model.Testimony
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
-import com.bumptech.glide.Glide;
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.user.model.Testimony;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-public class SimpleImageViewer extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_image_viewer_user);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setTitle("Image Viewer");
-            supportActionBar.setSubtitle("Pinch To Zoom");
+class SimpleImageViewer : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_simple_image_viewer_user)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.md_nav_back)
+        toolbar?.title = "Picha"
+        toolbar?.setNavigationOnClickListener {
+            onBackPressed()
         }
+        //        setSupportActionBar(toolbar);
 
-        Intent intent = getIntent();
-        ImageView imageView = findViewById(R.id.image_image);
+//        ActionBar supportActionBar = getSupportActionBar();
+//        if (supportActionBar != null) {
+//            supportActionBar.setDisplayHomeAsUpEnabled(true);
+//            supportActionBar.setTitle("Image Viewer");
+//            supportActionBar.setSubtitle("Pinch To Zoom");
+//        }
+        val intent = intent
+        val imageView = findViewById<ImageView>(R.id.image_image)
         if (intent != null) {
-            Testimony testimony = (Testimony) intent.getSerializableExtra("_image_");
-            Glide.with(this).load(testimony.getImage()).into(imageView);
+            val testimony = intent.getSerializableExtra("_image_") as Testimony?
+            Glide.with(this).load(testimony!!.image).into(imageView)
 
             //pinch to zoom
-            imageView.setOnTouchListener(new ImageMatrixTouchHandler(imageView.getContext()));
+            imageView.setOnTouchListener(ImageMatrixTouchHandler(imageView.context))
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view ->
-                Snackbar.make(view, "Share project", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
-
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(view ->
+//                Snackbar.make(view, "Share project", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show());
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
-
 }
