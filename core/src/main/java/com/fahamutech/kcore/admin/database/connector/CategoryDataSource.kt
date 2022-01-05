@@ -1,10 +1,9 @@
-package com.fahamutech.kcore.admin.database.connector;
+package com.fahamutech.kcore.admin.database.connector
 
-import com.fahamutech.kcore.admin.database.DataBaseCallback;
-import com.fahamutech.kcore.admin.model.ICategory;
+import com.fahamutech.kcore.admin.database.DataBaseCallback
+import com.fahamutech.kcore.admin.model.Category
 
-public interface CategoryDataSource {
-    void createCategory(ICategory category, DataBaseCallback... callbacks);
-
-    void deleteCategory(String docId, DataBaseCallback... callbacks);
+interface CategoryDataSource {
+    fun createCategory(category: Category?, vararg callbacks: DataBaseCallback?)
+    fun deleteCategory(docId: String?, vararg callbacks: DataBaseCallback?)
 }

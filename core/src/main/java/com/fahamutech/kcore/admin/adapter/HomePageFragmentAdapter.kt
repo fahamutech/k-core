@@ -1,40 +1,39 @@
-package com.fahamutech.kcore.admin.adapter;
+package com.fahamutech.kcore.admin.adapter
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.fahamutech.kcore.admin.fragment.HomeArticlesFragment
+import com.fahamutech.kcore.admin.fragment.HomeTestimonyFragment
 
-import com.fahamutech.kcore.admin.fragment.HomeArticlesFragment;
-import com.fahamutech.kcore.admin.fragment.HomeTestimonyFragment;
-
-public class HomePageFragmentAdapter extends FragmentPagerAdapter {
-
-    public HomePageFragmentAdapter(FragmentManager fm) {
-        super(fm);
+class HomePageFragmentAdapter(fm: FragmentManager?) : FragmentPagerAdapter(
+    fm!!
+) {
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> {
+                HomeArticlesFragment()
+            }
+            1 -> {
+                HomeTestimonyFragment()
+            }
+            else -> Fragment()
+        }
     }
 
-    @Override
-    public Fragment getItem(int position) {
-        if (position == 0) {
-            return new HomeArticlesFragment();
-        } else if (position == 1) {
-            return new HomeTestimonyFragment();
-        } else return null;
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position) {
+            0 -> {
+                "Home"
+            }
+            1 -> {
+                "Testimony"
+            }
+            else -> super.getPageTitle(position)
+        }
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        if (position == 0) {
-            return "Home";
-        } else if (position == 1) {
-            return "Testimony";
-        }else return super.getPageTitle(position);
-    }
-
-    @Override
-    public int getCount() {
-        return 2;
+    override fun getCount(): Int {
+        return 2
     }
 }

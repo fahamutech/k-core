@@ -1,58 +1,41 @@
-package com.fahamutech.kcore.user.adapter;
+package com.fahamutech.kcore.user.adapter
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import com.fahamutech.kcore.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import android.content.Intent
+import android.view.View
+import com.fahamutech.kcore.user.activities.ReadActivity
+import com.fahamutech.kcore.user.model.Article
+import com.fahamutech.kcore.user.vholder.ArtViewHolder
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.user.activities.ReadActivity;
-import com.fahamutech.kcore.user.model.Article;
-import com.fahamutech.kcore.user.vholder.ArtViewHolder;
-
-import java.util.List;
-
-public class ArtAdapter extends RecyclerView.Adapter<ArtViewHolder> {
-
-    private List<Article> articles;
-    private Context context;
-
-    public ArtAdapter(List<Article> articles, Context context) {
-        this.articles = articles;
-        this.context = context;
+class ArtAdapter(private val articles: List<Article>, private val context: Context) :
+    RecyclerView.Adapter<ArtViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtViewHolder {
+        val inflate =
+            LayoutInflater.from(context).inflate(R.layout.article_view_user, parent, false)
+        return ArtViewHolder(inflate)
     }
 
-    @NonNull
-    @Override
-    public ArtViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.article_view_user, parent, false);
-        return new ArtViewHolder(inflate);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ArtViewHolder holder, int position) {
-        holder.getTitle().setText(articles.get(position).getTitle());
-        holder.getDescription().setText(articles.get(position).getContent());
+    override fun onBindViewHolder(holder: ArtViewHolder, position: Int) {
+        holder.title.text = articles[position].title
+        holder.description.text = articles[position].content
         Glide.with(context)
-                .load(articles.get(position).getImage())
-                .apply(new RequestOptions().circleCrop())
-                .into(holder.getImage());
-        holder.getView().setOnClickListener(v -> {
-            Intent intent = new Intent(context, ReadActivity.class);
-            intent.putExtra("_article", articles.get(position));
-            context.startActivity(intent);
-//            Snackbar.make(v, "Item clicked : " + position, Snackbar.LENGTH_SHORT).show();
-        });
+            .load(articles[position].image)
+            .apply(RequestOptions().circleCrop())
+            .into(holder.image)
+        holder.view.setOnClickListener {
+            val intent = Intent(context, ReadActivity::class.java)
+            intent.putExtra("_article", articles[position])
+            context.startActivity(intent)
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return articles.size();
+    override fun getItemCount(): Int {
+        return articles.size
     }
 }

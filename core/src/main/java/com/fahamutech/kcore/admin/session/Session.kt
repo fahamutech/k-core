@@ -1,38 +1,33 @@
-package com.fahamutech.kcore.admin.session;
+package com.fahamutech.kcore.admin.session
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context
+import android.content.SharedPreferences
 
-public class Session {
-
-    public static String PAY_OK = "AkjgaoHFuf687V";
-    public static String PAY_NOT_OK = "uy5rhgJFFjh";
-    public static String PAY_D = "T74r74jhkjklh";
-
-    private SharedPreferences sharedPreferences;
-    private String CAT = "_category_";
-    private String TITLE = "_title_";
-    private String PATIENT = "_patient_";
-    private String PAY = "_payment_";
-    private String CATEGORIES="_category_list_";
-
-    public Session(Context context) {
-        sharedPreferences = context.getSharedPreferences("jhsffsaiuda", Context.MODE_PRIVATE);
+class Session(context: Context) {
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("jhsffsaiuda", Context.MODE_PRIVATE)
+    private val CAT = "_category_"
+    private val TITLE = "_title_"
+    private val PATIENT = "_patient_"
+    private val PAY = "_payment_"
+    private val CATEGORIES = "_category_list_"
+    fun saveLastCategory(category: String?) {
+        sharedPreferences.edit().putString(CAT, category).apply()
     }
 
-    public void saveLastCategory(String category) {
-        sharedPreferences.edit().putString(CAT, category).apply();
+    fun saveLastTitle(title: String?) {
+        sharedPreferences.edit().putString(TITLE, title).apply()
     }
 
-    public void saveLastTitle(String title) {
-        sharedPreferences.edit().putString(TITLE, title).apply();
+    val lastCategory: String?
+        get() = sharedPreferences.getString(CAT, "")
+    val lastTitle: String?
+        get() = sharedPreferences.getString(TITLE, "")
+
+    companion object {
+        var PAY_OK = "AkjgaoHFuf687V"
+        var PAY_NOT_OK = "uy5rhgJFFjh"
+        var PAY_D = "T74r74jhkjklh"
     }
 
-    public String getLastCategory() {
-        return sharedPreferences.getString(CAT, "");
-    }
-
-    public String getLastTitle() {
-        return sharedPreferences.getString(TITLE, "");
-    }
 }

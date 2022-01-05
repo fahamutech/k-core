@@ -1,5 +1,5 @@
-package com.fahamutech.kcore.user.database.noSql;
+package com.fahamutech.kcore.user.database.noSql
 
-public enum  NoSqlColl {
-    CATEGORY,ARTICLES,PAYMENT,USER,TESTIMONY,
+enum class NoSqlColl {
+    CATEGORY, ARTICLES, PAYMENT, USER, TESTIMONY
 }

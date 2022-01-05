@@ -1,43 +1,16 @@
-package com.fahamutech.kcore.user.model;
+package com.fahamutech.kcore.user.model
 
-import java.io.Serializable;
+import java.io.Serializable
 
-public class Testimony implements Serializable {
-    private String id;
-    private String image;
-    private String date;
+class Testimony : Serializable {
+    var id: String? = null
+    var image: String? = null
+    var date: String? = null
 
-    public Testimony(){
-
-    }
-
-    public Testimony(String id, String image, String date) {
-        this.id = id;
-        this.image = image;
-        this.date = date;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    constructor() {}
+    constructor(id: String?, image: String?, date: String?) {
+        this.id = id
+        this.image = image
+        this.date = date
     }
 }

@@ -1,62 +1,47 @@
-package com.fahamutech.kcore.user.adapter;
+package com.fahamutech.kcore.user.adapter
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import com.fahamutech.kcore.R
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import android.content.Intent
+import android.view.View
+import com.fahamutech.kcore.user.activities.CategoryContent
+import com.fahamutech.kcore.user.model.Category
+import com.fahamutech.kcore.user.session.Session
+import com.fahamutech.kcore.user.vholder.CatViewHolder
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.user.activities.CategoryContent;
-import com.fahamutech.kcore.user.model.Category;
-import com.fahamutech.kcore.user.session.Session;
-import com.fahamutech.kcore.user.vholder.CatViewHolder;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
-
-public class CatAdapter extends RecyclerView.Adapter<CatViewHolder> {
-
-    private List<Category> lists;
-    private Context context;
-    private Session session;
-
-    public CatAdapter(List<Category> lists, Context context) {
-        this.lists = lists;
-        this.context = context;
-        this.session = new Session(context);
+class CatAdapter(private val lists: List<Category>, private val context: Context) :
+    RecyclerView.Adapter<CatViewHolder>() {
+    private val session: Session
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
+        val inflate = LayoutInflater.from(context)
+            .inflate(R.layout.cat_view_user, parent, false)
+        return CatViewHolder(inflate)
     }
 
-    @NonNull
-    @Override
-    public CatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context)
-                .inflate(R.layout.cat_view_user, parent, false);
-        return new CatViewHolder(inflate);
+    override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
+        holder.title.text = lists[position].name
+        holder.subtitle.text = lists[position].description
+        Glide.with(context).load(lists[position].image).into(holder.imageView)
+        holder.view.setOnClickListener { v: View? ->
+            Snackbar.make(v!!, "Itemc clicked is : $position", Snackbar.LENGTH_SHORT).show()
+            val intent = Intent(context, CategoryContent::class.java)
+            intent.putExtra("_category", lists[position])
+            session.saveLastCategory(lists[position].id)
+            session.saveLastTitle(lists[position].name)
+            context.startActivity(intent)
+        }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CatViewHolder holder, int position) {
-        holder.getTitle().setText(lists.get(position).getName());
-        holder.getSubtitle().setText(lists.get(position).getDescription());
-        Glide.with(context).load(lists.get(position).getImage()).into(holder.getImageView());
-
-        holder.getView().setOnClickListener(v -> {
-            Snackbar.make(v, "Itemc clicked is : " + position, Snackbar.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, CategoryContent.class);
-            intent.putExtra("_category", lists.get(position));
-            session.saveLastCategory(lists.get(position).getId());
-            session.saveLastTitle(lists.get(position).getName());
-            context.startActivity(intent);
-        });
+    override fun getItemCount(): Int {
+        return lists.size
     }
 
-    @Override
-    public int getItemCount() {
-        return lists.size();
+    init {
+        session = Session(context)
     }
 }

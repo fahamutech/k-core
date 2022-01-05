@@ -1,49 +1,47 @@
-package com.fahamutech.kcore.admin.fragment;
+package com.fahamutech.kcore.admin.fragment
 
-import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.os.Bundle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.fahamutech.kcore.R
+import com.fahamutech.kcore.admin.database.connector.HomeDataSource
+import com.fahamutech.kcore.admin.database.noSql.HomeNoSqlDatabase
+import com.google.firebase.firestore.ListenerRegistration
 
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.admin.database.connector.HomeDataSource;
-import com.fahamutech.kcore.admin.database.noSql.HomeNoSqlDatabase;
-import com.google.firebase.firestore.ListenerRegistration;
-
-public class HomeTestimonyFragment extends Fragment {
-
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ListenerRegistration listenerRegistration;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_testimony, container, false);
-        return initView(inflate, new HomeNoSqlDatabase(inflate.getContext()));
+class HomeTestimonyFragment : Fragment() {
+    private var recyclerView: RecyclerView? = null
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private var listenerRegistration: ListenerRegistration? = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val inflate = inflater.inflate(R.layout.fragment_testimony, container, false)
+        return initView(inflate, HomeNoSqlDatabase(inflate.context))
     }
 
-
-    private View initView(View view, HomeDataSource homeDataSource) {
-        recyclerView = view.findViewById(R.id.testimony_cat_recy);
-        swipeRefreshLayout = view.findViewById(R.id.testimony_cat_swipe);
-        listenerRegistration = (ListenerRegistration) homeDataSource.getTestimony(recyclerView, swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() ->
-                listenerRegistration = (ListenerRegistration) homeDataSource.getTestimony(recyclerView, swipeRefreshLayout));
-        return view;
-    }
-
-    @Override
-    public void onDestroy() {
-        if (listenerRegistration != null) {
-            listenerRegistration.remove();
+    private fun initView(view: View, homeDataSource: HomeDataSource): View {
+        recyclerView = view.findViewById(R.id.testimony_cat_recy)
+        swipeRefreshLayout = view.findViewById(R.id.testimony_cat_swipe)
+        listenerRegistration =
+            homeDataSource.getTestimony(recyclerView, swipeRefreshLayout) as ListenerRegistration?
+        swipeRefreshLayout?.setOnRefreshListener {
+            listenerRegistration = homeDataSource.getTestimony(
+                recyclerView,
+                swipeRefreshLayout
+            ) as ListenerRegistration?
         }
-        super.onDestroy();
+        return view
+    }
+
+    override fun onDestroy() {
+        if (listenerRegistration != null) {
+            listenerRegistration!!.remove()
+        }
+        super.onDestroy()
     }
 }

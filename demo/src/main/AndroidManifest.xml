@@ -22,24 +22,18 @@
         </activity>
         <activity
             android:name="com.fahamutech.kcore.user.activities.CategoryContent"
-            android:label="@string/title_activity_category_content"
             android:parentActivityName="com.fahamutech.kcore.user.activities.MasomoActivity" />
         <activity
             android:name="com.fahamutech.kcore.user.activities.ReadActivity"
-            android:label="@string/title_activity_read"
             android:parentActivityName="com.fahamutech.kcore.user.activities.MasomoActivity" />
         <activity android:name="com.fahamutech.kcore.user.activities.SimpleImageViewer" />
 
         <activity
             android:name="com.fahamutech.kcore.admin.activities.CategoryActivity"
-            android:label="@string/title_activity_category"
-            android:parentActivityName="com.fahamutech.kcore.admin.activities.JifunzeAdminActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName="com.fahamutech.kcore.admin.activities.JifunzeAdminActivity" />
         <activity
             android:name="com.fahamutech.kcore.admin.activities.NewArticleActivity"
-            android:label="@string/title_activity_testimony"
-            android:parentActivityName="com.fahamutech.kcore.admin.activities.JifunzeAdminActivity"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName="com.fahamutech.kcore.admin.activities.JifunzeAdminActivity" />
 
     </application>
 

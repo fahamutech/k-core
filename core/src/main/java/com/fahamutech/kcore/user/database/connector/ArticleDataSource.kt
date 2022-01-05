@@ -1,9 +1,11 @@
-package com.fahamutech.kcore.user.database.connector;
+package com.fahamutech.kcore.user.database.connector
 
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.RecyclerView
 
-public interface ArticleDataSource {
-    void getArticles(String categoryId, RecyclerView recyclerView,
-                     SwipeRefreshLayout swipeRefreshLayout);
+interface ArticleDataSource {
+    fun getArticles(
+        categoryId: String?, recyclerView: RecyclerView?,
+        swipeRefreshLayout: SwipeRefreshLayout?
+    )
 }

@@ -1,11 +1,11 @@
 package com.fahamutech.kcore.admin.database.noSql;
 
 import android.content.Context;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fahamutech.kcore.admin.adapter.ArtAdapter;
 import com.fahamutech.kcore.admin.database.connector.ArticleDataSource;

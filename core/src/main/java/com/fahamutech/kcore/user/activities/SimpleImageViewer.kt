@@ -8,7 +8,6 @@ import android.content.Intent
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
-import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler
 import com.fahamutech.kcore.user.model.Testimony
 
 class SimpleImageViewer : AppCompatActivity() {
@@ -16,7 +15,7 @@ class SimpleImageViewer : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_image_viewer_user)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.md_nav_back)
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
         toolbar?.title = "Picha"
         toolbar?.setNavigationOnClickListener {
             onBackPressed()
@@ -36,7 +35,7 @@ class SimpleImageViewer : AppCompatActivity() {
             Glide.with(this).load(testimony!!.image).into(imageView)
 
             //pinch to zoom
-            imageView.setOnTouchListener(ImageMatrixTouchHandler(imageView.context))
+//            imageView.setOnTouchListener(ImageMatrixTouchHandler(imageView.context))
         }
 
 //        FloatingActionButton fab = findViewById(R.id.fab);

@@ -1,15 +1,7 @@
-package com.fahamutech.kcore.admin.model;
+package com.fahamutech.kcore.admin.model
 
-public interface ITestimony {
-    void setId(String id);
-
-    void setImage(String image);
-
-    void setDate(String date);
-
-    String getId();
-
-    String getImage();
-
-    String getDate();
+interface ITestimony {
+    var id: String?
+    var image: String?
+    var date: String?
 }

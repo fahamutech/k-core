@@ -1,52 +1,35 @@
-package com.fahamutech.kcore.user.adapter;
+package com.fahamutech.kcore.user.adapter
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import com.fahamutech.kcore.R
+import com.bumptech.glide.Glide
+import android.content.Intent
+import android.view.View
+import com.fahamutech.kcore.user.activities.SimpleImageViewer
+import com.fahamutech.kcore.user.model.Testimony
+import com.fahamutech.kcore.user.vholder.TestViewHolder
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.user.activities.SimpleImageViewer;
-import com.fahamutech.kcore.user.model.Testimony;
-import com.fahamutech.kcore.user.vholder.TestViewHolder;
-
-import java.util.List;
-
-public class TestimonyAdapter extends RecyclerView.Adapter<TestViewHolder> {
-
-    private List<Testimony> testimonies;
-    private Context context;
-
-    public TestimonyAdapter(Context context, List<Testimony> testimonies) {
-        this.context = context;
-        this.testimonies = testimonies;
+class TestimonyAdapter(private val context: Context, private val testimonies: List<Testimony>) :
+    RecyclerView.Adapter<TestViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestViewHolder {
+        val inflate = LayoutInflater
+            .from(context).inflate(R.layout.testimony_item_user, parent, false)
+        return TestViewHolder(inflate)
     }
 
-    @NonNull
-    @Override
-    public TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater
-                .from(context).inflate(R.layout.testimony_item_user, parent, false);
-        return new TestViewHolder(inflate);
+    override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
+        Glide.with(context).load(testimonies[position].image).into(holder.imageView)
+        holder.imageView.setOnClickListener {
+            val intent = Intent(context, SimpleImageViewer::class.java)
+            intent.putExtra("_image_", testimonies[position])
+            context.startActivity(intent)
+        }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        Glide.with(context).load(testimonies.get(position).getImage()).into(holder.getImageView());
-        holder.getImageView().setOnClickListener(v -> {
-            Intent intent = new Intent(context, SimpleImageViewer.class);
-            intent.putExtra("_image_", testimonies.get(position));
-            context.startActivity(intent);
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return testimonies.size();
+    override fun getItemCount(): Int {
+        return testimonies.size
     }
 }

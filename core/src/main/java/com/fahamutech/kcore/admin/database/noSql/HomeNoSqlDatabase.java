@@ -1,9 +1,10 @@
 package com.fahamutech.kcore.admin.database.noSql;
 
 import android.content.Context;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -66,7 +67,6 @@ public class HomeNoSqlDatabase extends NoSqlDatabase implements HomeDataSource {
     }
 
     public Object getTestimony(RecyclerView recyclerView, SwipeRefreshLayout swipeRefreshLayout) {
-
         swipeRefreshLayout.setRefreshing(true);
         return firestore.collection(NoSqlColl.TESTIMONY.name())
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {

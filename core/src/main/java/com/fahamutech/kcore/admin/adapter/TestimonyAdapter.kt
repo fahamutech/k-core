@@ -1,94 +1,86 @@
-package com.fahamutech.kcore.admin.adapter;
+package com.fahamutech.kcore.admin.adapter
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.AlertDialog
+import android.content.Context
+import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import com.fahamutech.kcore.R
+import com.bumptech.glide.Glide
+import android.content.Intent
+import android.util.Log
+import android.view.View
+import com.fahamutech.kcore.admin.database.noSql.TestmonyNoSqlDatabase
+import com.fahamutech.kcore.admin.database.DataBaseCallback
+import com.google.android.material.snackbar.Snackbar
+import android.widget.Toast
+import com.fahamutech.kcore.admin.activities.SimpleImageViewer
+import com.fahamutech.kcore.admin.model.Testimony
+import com.fahamutech.kcore.admin.vholder.TestViewHolder
 
-import androidx.annotation.NonNull;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.admin.activities.SimpleImageViewer;
-import com.fahamutech.kcore.admin.database.noSql.TestmonyNoSqlDatabase;
-import com.fahamutech.kcore.admin.model.Testimony;
-import com.fahamutech.kcore.admin.vholder.TestViewHolder;
-import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-import com.github.javiersantos.materialstyleddialogs.enums.Style;
-
-import java.util.List;
-
-public class TestimonyAdapter extends RecyclerView.Adapter<TestViewHolder> {
-
-    private List<Testimony> testimonies;
-    private Context context;
-
-    public TestimonyAdapter(Context context, List<Testimony> testimonies) {
-        this.context = context;
-        this.testimonies = testimonies;
+class TestimonyAdapter(private val context: Context, private val testimonies: List<Testimony>) :
+    RecyclerView.Adapter<TestViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestViewHolder {
+        val inflate = LayoutInflater
+            .from(context).inflate(R.layout.testimony_item, parent, false)
+        return TestViewHolder(inflate)
     }
 
-    @NonNull
-    @Override
-    public TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater
-                .from(context).inflate(R.layout.testimony_item, parent, false);
-        return new TestViewHolder(inflate);
+    override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
+        Glide.with(context).load(testimonies[position].image).into(holder.imageView)
+        holder.imageView.setOnClickListener {
+            val intent = Intent(context, SimpleImageViewer::class.java)
+            intent.putExtra("_image_", testimonies[position])
+            context.startActivity(intent)
+        }
+        holder.imageView.setOnLongClickListener { v: View ->
+            testimonies[position].id?.let { deleteDialog(v, it) }
+            true
+        }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        Glide.with(context).load(testimonies.get(position).getImage()).into(holder.getImageView());
-        holder.getImageView().setOnClickListener(v -> {
-            Intent intent = new Intent(context, SimpleImageViewer.class);
-            intent.putExtra("_image_", testimonies.get(position));
-            context.startActivity(intent);
-        });
-
-        holder.getImageView().setOnLongClickListener(v -> {
-            deleteDialog(v,testimonies.get(position).getId());
-            return true;
-        });
+    override fun getItemCount(): Int {
+        return testimonies.size
     }
 
-    @Override
-    public int getItemCount() {
-        return testimonies.size();
-    }
-
-    private void deleteDialog(View itemView, String docId) {
+    private fun deleteDialog(itemView: View, docId: String) {
         //vibrate();
-        new MaterialStyledDialog.Builder(context)
-                .setDescription("Confirm Deletion")
-                .setStyle(Style.HEADER_WITH_ICON)
-                .setCancelable(false)
-                .autoDismiss(true)
-                .setIcon(R.drawable.ic_delete_black_24dp)
-                .setPositiveText("Delete")
-                .setNegativeText("Cancel")
-                .onPositive((dialog, which) -> {
-                    //TODO: delete from firestore
-                    new TestmonyNoSqlDatabase(itemView.getContext()).deleteTestimony(
-                            docId,
-                            data -> {
-                                Log.e("category delete", "Done delete category");
-                            },
-                            data -> {
-                                Log.e("category delete", "category fail to be deleted");
-                            });
+        AlertDialog.Builder(context)
+//            .setDescription("Confirm Deletion")
+//            .setStyle(Style.HEADER_WITH_ICON)
+            .setCancelable(false)
+            .setOnDismissListener {
+                it.dismiss()
+            }
+            .setIcon(R.drawable.ic_delete_black_24dp)
+            .setPositiveButton("Delete") { d, _ ->
+                //TODO: delete from firestore
+                TestmonyNoSqlDatabase(itemView.context).deleteTestimony(
+                    docId,
+                    object : DataBaseCallback {
+                        override fun then(`object`: Any?) {
+                            Log.e(
+                                "category delete",
+                                "Done delete category"
+                            )
+                        }
+                    },
+                    object : DataBaseCallback {
+                        override fun then(`object`: Any?) {
+                            Log.e(
+                                "category delete",
+                                "category fail to be deleted"
+                            )
+                        }
+                    })
 
-                    //Log.e("TAG******","Umefua");
-                    dialog.dismiss();
-                    Snackbar.make(itemView, "Category deleted...", Toast.LENGTH_SHORT).show();
-                })
-                .onNegative((dialog, which) -> {
-                    dialog.dismiss();
-                    Snackbar.make(itemView, "Canceled...", Toast.LENGTH_SHORT).show();
-                }).show();
+                //Log.e("TAG******","Umefua");
+                d.dismiss()
+                Snackbar.make(itemView, "Category deleted...", Snackbar.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel") { d, _ ->
+                d.dismiss()
+                Snackbar.make(itemView, "Canceled...", Snackbar.LENGTH_SHORT).show()
+            }.show()
     }
 }

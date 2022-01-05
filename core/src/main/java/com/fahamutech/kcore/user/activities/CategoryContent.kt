@@ -1,19 +1,17 @@
 package com.fahamutech.kcore.user.activities
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.os.Bundle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.AppCompatDrawableManager
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import com.fahamutech.kcore.R
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.fahamutech.kcore.user.database.connector.ArticleDataSource
 import com.fahamutech.kcore.user.database.noSql.ArticlesNoSqlDatabase
 import com.fahamutech.kcore.user.model.Category
 import com.fahamutech.kcore.user.session.Session
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CategoryContent : AppCompatActivity() {
     private var session: Session? = null
@@ -26,32 +24,16 @@ class CategoryContent : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_content_user)
-        //        setSupportActionBar(toolbar);
-//        ActionBar supportActionBar = getSupportActionBar();
         val category = intent.getSerializableExtra("_category") as Category?
-
-//        if (supportActionBar != null) {
-//            supportActionBar.setDisplayHomeAsUpEnabled(true);
         if (category != null) {
             title = category.name
             categoryId = category.id
-            //                supportActionBar.setTitle(title);
-        } else if (!session!!.lastCategory.isEmpty()) {
+        } else if (session!!.lastCategory?.isNotEmpty() == true) {
             categoryId = session!!.lastCategory
             title = session!!.lastTitle
-            //                supportActionBar.setTitle(title);
         }
         bindView()
-        //        }
-
-        //get articles
         initContent(ArticlesNoSqlDatabase(this))
-        //testing
-//        fab.setOnClickListener(view -> {
-//            Snackbar.make(view,
-//                    "Chat opening...", Snackbar.LENGTH_LONG).show();
-////            startActivity(new Intent(this, ForumMainActivity.class));
-//        });
     }
 
     private fun initContent(articleDataSource: ArticleDataSource) {
@@ -71,12 +53,10 @@ class CategoryContent : AppCompatActivity() {
         fab = findViewById(R.id.fab)
         toolbar = findViewById(R.id.toolbar)
         toolbar?.title = title
-        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.md_nav_back)
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
         toolbar?.setNavigationOnClickListener {
             onBackPressed()
         }
-
-        //start session
         session = Session(this)
     }
 

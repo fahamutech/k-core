@@ -1,11 +1,9 @@
-package com.fahamutech.kcore.admin.database.connector;
+package com.fahamutech.kcore.admin.database.connector
 
-import com.fahamutech.kcore.admin.database.DataBaseCallback;
-import com.fahamutech.kcore.admin.model.ITestimony;
+import com.fahamutech.kcore.admin.database.DataBaseCallback
+import com.fahamutech.kcore.admin.model.ITestimony
 
-public interface TestimonyDataSource {
-
-    void createTestimony(ITestimony testimony, DataBaseCallback... callbacks);
-
-    void deleteTestimony(String docId, DataBaseCallback... callbacks);
+interface TestimonyDataSource {
+    fun createTestimony(testimony: ITestimony?, vararg callbacks: DataBaseCallback?)
+    fun deleteTestimony(docId: String?, vararg callbacks: DataBaseCallback?)
 }

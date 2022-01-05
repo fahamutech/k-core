@@ -65,7 +65,7 @@ class ReadActivity : AppCompatActivity() {
         title = findViewById(R.id.read_title)
         image = findViewById(R.id.read_image)
         toolbar?.title = "Soma"
-        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.md_nav_back)
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_arrow_back_24)
         toolbar?.setNavigationOnClickListener {
             onBackPressed()
         }

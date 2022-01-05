@@ -32,7 +32,7 @@ class UshuhudaActivity : AppCompatActivity() {
     }
 
     private fun initVipContent() {
-        fab!!.setOnClickListener { view: View? -> onBackPressed() }
+        fab!!.setOnClickListener { onBackPressed() }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -44,7 +44,7 @@ class UshuhudaActivity : AppCompatActivity() {
     private fun bindView(context: Context) {
         toolbar = findViewById(R.id.toolbar)
         toolbar?.title = "Ushuhuda"
-        toolbar?.navigationIcon = AppCompatResources.getDrawable(context,R.drawable.md_nav_back)
+        toolbar?.navigationIcon = AppCompatResources.getDrawable(context,R.drawable.ic_baseline_arrow_back_24)
         toolbar?.setNavigationOnClickListener {
             onBackPressed()
             Log.e("TAGGG","Go back home")

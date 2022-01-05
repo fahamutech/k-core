@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.5.31'
-    ext.versionName = "2021.12.30-build.10-v1.2"
+    ext.versionName = "2022.1.5-build.11-v1.3"
 
     repositories {
         google()
@@ -23,7 +23,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven {
             url "https://jitpack.io"
         }

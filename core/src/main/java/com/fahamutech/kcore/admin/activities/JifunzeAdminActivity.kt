@@ -1,73 +1,68 @@
-package com.fahamutech.kcore.admin.activities;
+package com.fahamutech.kcore.admin.activities
 
-import android.content.Intent;
-import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import android.os.Bundle
+import com.fahamutech.kcore.R
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.widget.Toolbar
+import com.fahamutech.kcore.admin.activities.CategoryActivity
+import com.fahamutech.kcore.admin.activities.NewArticleActivity
+import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
+import com.fahamutech.kcore.admin.adapter.HomePageFragmentAdapter
 
-import com.fahamutech.kcore.R;
-import com.fahamutech.kcore.admin.adapter.HomePageFragmentAdapter;
-
-public class JifunzeAdminActivity extends AppCompatActivity {
-
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_bar_main);
-        bindView();
-        setSupportActionBar(toolbar);
+class JifunzeAdminActivity : AppCompatActivity() {
+    private var toolbar: Toolbar? = null
+    private var fab: FloatingActionButton? = null
+    private var viewPager: ViewPager? = null
+    private var tabLayout: TabLayout? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.app_bar_main)
+        bindView()
+        setSupportActionBar(toolbar)
 
         //tab layout
-        initViewPager();
+        initViewPager()
 
         //for testing
-        fab.setOnClickListener(view -> onBackPressed());
+        fab!!.setOnClickListener { onBackPressed() }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        menuInflater.inflate(R.menu.main, menu)
+        return true
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+        val id = item.itemId
         if (id == R.id.action_new_category) {
-            startActivity(new Intent(this, CategoryActivity.class));
-            return true;
-        }else if (id==R.id.action_new_article){
-            startActivity(new Intent(this,NewArticleActivity.class));
+            startActivity(Intent(this, CategoryActivity::class.java))
+            return true
+        } else if (id == R.id.action_new_article) {
+            startActivity(Intent(this, NewArticleActivity::class.java))
         }
-
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
-    private void bindView() {
-        toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.home_chat_fab);
-        viewPager = findViewById(R.id.home_viewpager);
-        tabLayout = findViewById(R.id.home_tab_layout);
+    private fun bindView() {
+        toolbar = findViewById(R.id.toolbar)
+        fab = findViewById(R.id.home_chat_fab)
+        viewPager = findViewById(R.id.home_viewpager)
+        tabLayout = findViewById(R.id.home_tab_layout)
     }
 
-    private void initViewPager() {
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.setAdapter(new HomePageFragmentAdapter(getSupportFragmentManager()));
+    private fun initViewPager() {
+        tabLayout!!.setupWithViewPager(viewPager)
+        viewPager!!.addOnPageChangeListener(TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout!!.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager))
+        viewPager!!.adapter = HomePageFragmentAdapter(supportFragmentManager)
     }
 }

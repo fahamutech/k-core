@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.fahamutech.kcore.admin.database.DataBaseCallback;
 import com.fahamutech.kcore.admin.database.connector.CategoryDataSource;
+import com.fahamutech.kcore.admin.model.Category;
 import com.fahamutech.kcore.admin.model.ICategory;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.SetOptions;
@@ -15,7 +16,7 @@ public class CategoryNoSqlDatabase extends NoSqlDatabase implements CategoryData
     }
 
     @Override
-    public void createCategory(ICategory category, DataBaseCallback... callbacks) {
+    public void createCategory(Category category, DataBaseCallback... callbacks) {
         DocumentReference doc = firestore.collection("CATEGORY").document();
         category.setId(doc.getId());
         doc.set(category, SetOptions.merge())
